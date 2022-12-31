@@ -3,8 +3,9 @@ const CopyPlugin = require("copy-webpack-plugin");
 const HtmlPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: "./src/App.tsx",
+  mode: "development", 
+  devtool: 'cheap-module-source-map',
+  entry: path.resolve("./src/App.tsx"),
   module: {
     rules: [
       {
