@@ -1,16 +1,17 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import './assets/main.css';
-import TimeZones from './components/TimeZones'
-const test = (
-  <div>
-    <h1>Hello new tab! !!!</h1>
-    <TimeZones/>
-    <img src="img/bg_1.png" alt="bg"/>
-  </div>
-);
+import "./assets/main.css";
+import NewTab from "./newtab";
 
-const container = document.createElement("div");
-document.body.appendChild(container);
-const root = createRoot(container);
-root.render(test);
+const init = () => {
+  const appContainer = document.createElement("div");
+  document.body.appendChild(appContainer);
+  if (!appContainer) {
+    throw new Error("Cannot find AppContainer");
+  }
+  const root = createRoot(appContainer);
+  console.log(appContainer)
+  root.render(<NewTab/>);
+};
+
+init();
