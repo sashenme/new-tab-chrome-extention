@@ -1,9 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-
+import './assets/main.css';
+import TimeZones from './components/TimeZones'
 const test = (
   <div>
     <h1>Hello new tab!</h1>
+    <TimeZones/>
   </div>
 );
 
