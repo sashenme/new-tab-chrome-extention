@@ -4,9 +4,9 @@ import './assets/main.css';
 import TimeZones from './components/TimeZones'
 const test = (
   <div>
-    <h1>Hello new tab!</h1>
+    <h1>Hello new tab! !!!</h1>
     <TimeZones/>
-    <img src="img/bg_1.png"/>
+    <img src="img/bg_1.png" alt="bg"/>
   </div>
 );
 

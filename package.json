@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "webpack --watch --progress --config webpack.config.js",
-    "dev": "webpack"
+    "watch": "webpack --watch --progress --config webpack.dev.js",
+    "build": "webpack --progress --config webpack.prod.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "tailwind": "^4.0.0",
     "tailwindcss": "^3.2.4",
     "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "webpack-cli": "^5.0.1",
+    "webpack-merge": "^5.8.0"
   }
 }
