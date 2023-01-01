@@ -34002,7 +34002,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const test = (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null,
     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Hello new tab!"),
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_TimeZones__WEBPACK_IMPORTED_MODULE_3__["default"], null)));
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_TimeZones__WEBPACK_IMPORTED_MODULE_3__["default"], null),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", { src: "img/bg_1.png" })));
 const container = document.createElement("div");
 document.body.appendChild(container);
 const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);

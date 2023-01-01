@@ -26,6 +26,10 @@ module.exports = {
           }
         }],
         test: /\.css$/,
+      },{
+        type: 'assets/resource',
+        use: 'asset/resources',
+        test: /\.(png|jpg|jpeg|gif|woff|woff2|tff|eot|svg)$/,
       }
     ],
   },
@@ -33,7 +37,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve("src/static/manifest.json"),
+          from: path.resolve("src/static/"),
           to: path.resolve("dist"),
         },
       ],

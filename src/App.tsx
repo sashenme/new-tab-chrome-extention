@@ -6,6 +6,7 @@ const test = (
   <div>
     <h1>Hello new tab!</h1>
     <TimeZones/>
+    <img src="img/bg_1.png"/>
   </div>
 );
 
