@@ -11,14 +11,20 @@ import Weather from "../components/Weather";
 const NewTab = () => {
   return (
     <div className="max-w-[1620px] mx-auto p-4  font-sans">
-      <TimeZones/>
-      <TodaysDate/>
-      <Weather/>
-      <Search/>
-      <QuickLinks/>
-      <Tasks/>
-      <Settings/>
-      <Background/>
+      <TimeZones />
+      <div className="grid grid-cols-2 mt-20">
+        <div>
+          <TodaysDate />
+          <Weather />
+          <Search />
+          <QuickLinks />
+        </div>
+        <div>
+          <Tasks />
+        </div>
+      </div>
+      <Settings />
+      <Background />
     </div>
   );
 };

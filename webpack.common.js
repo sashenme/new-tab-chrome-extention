@@ -43,7 +43,7 @@ module.exports = {
       ],
     }),
     new HtmlPlugin({
-      title:"ReactJs Boilerplate",
+      title:"New Tab",
       filename: "newtab.html"
     })
   ],

@@ -42,7 +42,7 @@ export default function TimeZones() {
   ];
 
   return (
-    <div className="text-green-400 flex gap-8 justify-evenly mt-6">
+    <div className="flex gap-8 justify-between my-8">
       {favoriteList.map((favorite) => (
         <TimeSlot
           key={favorite.id}
