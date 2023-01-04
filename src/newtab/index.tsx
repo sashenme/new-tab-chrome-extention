@@ -10,7 +10,7 @@ import Weather from "../components/Weather";
 
 const NewTab = () => {
   return (
-    <div>
+    <div className="max-w-[1620px] mx-auto p-4  font-sans">
       <TimeZones/>
       <TodaysDate/>
       <Weather/>
