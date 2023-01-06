@@ -4,5 +4,6 @@
   "version": "1.0.0",
   "chrome_url_overrides":{
     "newtab": "newtab.html"
-  }
+  },
+  "permissions":["geolocation"]
 }

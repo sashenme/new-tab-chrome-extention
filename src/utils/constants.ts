@@ -1,0 +1,1 @@
+export const unit = { name: "metric", temperature: "°C" };
