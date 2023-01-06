@@ -28,7 +28,6 @@ const TimeSlot: React.FC<TimeSlotProps> = ({
     return difference > 0 ? `+${difference}` : difference;
   };
 
-
   var n = useRef(null);
   var t = useRef(null);
 
@@ -36,11 +35,34 @@ const TimeSlot: React.FC<TimeSlotProps> = ({
   const timeFormat = showSeconds ? "hh:mm:ss A" : "hh:mm A" ;
   const dateFormat = "YYYY.MM.DD"
 
+
+  
+
+  const getTheDay = date => {
+    const yesterday  = moment().subtract(1, 'days').format(dateFormat);
+    const today = moment().format(dateFormat);
+    const tomorrow = moment().add(1, 'days').format(dateFormat);
+    
+    switch(date){
+      case today:
+        return 'Today';
+      case tomorrow:
+        return 'Tomorrow';
+      case yesterday:
+        return 'Yesterday';
+      default:
+        return 'NaN'
+    }
+  }
+
   useEffect(() => {
     setTimeDiff(getTimeDifference(timezone));
     const now =moment.tz(moment(), timezone); 
     setTime(now.format(timeFormat))
-    setDate(now.format(dateFormat));
+    const timeZoneDate = now.format(dateFormat);
+  
+    setDate(getTheDay(timeZoneDate));
+    console.log()
     const timeOffset = 1000 - new Date(Date.now()).getMilliseconds();
     
     n.current = setTimeout(() => {
@@ -63,7 +85,7 @@ const TimeSlot: React.FC<TimeSlotProps> = ({
         {city}
       </div>
       <h1 className="text-4xl font-bold">{time}</h1>
-      <div className="text-sm">{date} {timeDiff}</div>
+      <div className="text-sm">{date}, {timeDiff}</div>
     </div>
   );
 };
