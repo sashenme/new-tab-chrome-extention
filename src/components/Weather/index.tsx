@@ -73,13 +73,11 @@ const Weather = () => {
   return (
     <div className="flex gap-6 my-4 items-center">
       <div className="flex items-center gap-2">
-        <img
-          src={`${openWeatherImg}/${currentWeather.icon}.png`}
-          alt=""
-        />
-        <div className="text-4xl text-white font-bold">{`${Number(
-          currentWeather.temp
-        ).toFixed(0)}${unit.temperature}`}</div>
+        <img src={`${openWeatherImg}/${currentWeather.icon}.png`} alt="" />
+        <div className="text-4xl text-white font-bold flex">
+          <span>{`${Number(currentWeather.temp).toFixed(0)}`}</span>
+          <span className="text-2xl">{unit.temperature}</span>
+        </div>
       </div>
       <div>
         <div className="text-white text-xl capitalize">
