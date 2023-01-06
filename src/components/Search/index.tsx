@@ -21,7 +21,7 @@ const Search = () => {
   };
   return (
     <div>
-      <div className="rounded-full px-6  text-[16px] text-white bg-white/30 backdrop-blur-sm flex items-center border border-white/30 gap-2 mt-20 cursor-text">
+      <div className="rounded-full px-6  text-[16px] text-white bg-white/20 backdrop-blur-sm flex items-center border border-white/30 gap-2 mt-20 cursor-text">
         <SearchIcon />
         <input
           type="search"
