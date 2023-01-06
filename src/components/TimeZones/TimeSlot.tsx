@@ -26,9 +26,7 @@ const TimeSlot: React.FC<TimeSlotProps> = ({ city, timezone, country }) => {
     const guessed = moment.tz.guess();
     const currentTimezone = moment.tz.zone(guessed).utcOffset(now);
     const newTimezone = moment.tz.zone(timezone).utcOffset(now); 
-    const difference = currentTimezone - newTimezone; 
-    console.log(difference)
-
+    const difference = currentTimezone - newTimezone;  
     return difference > 0
       ? `+${formatDuration(difference)}`
       : `-${formatDuration(difference * -1)}`;
