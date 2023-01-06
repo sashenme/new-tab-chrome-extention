@@ -4,8 +4,19 @@ import SearchIcon from "../../assets/icons/search";
 const Search = () => {
   const [text, setText] = useState("");
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      window.open(`https://www.google.com/search?q=${text}`, "_blank");
+    if (event.key === "Enter") { 
+
+      function isValidUrl(string) {
+        try {
+          new URL(string);
+          return true;
+        } catch (err) {
+          return false;
+        }
+      }
+
+      const query = isValidUrl(text) ? text :`https://www.google.com/search?q=${text}`;
+      window.open(query, "_blank");
     }
   };
   return (
