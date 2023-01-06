@@ -14,20 +14,25 @@ const TimeSlot: React.FC<TimeSlotProps> = ({ city, timezone, country }) => {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
 
-  const getTimeDifference = (timezone) => {
-    var now: any = moment.utc();
-    // get the zone offsets for this time, in minutes
-    var guessed = moment.tz.guess();
-    var currentTimezone = moment.tz.zone(guessed).utcOffset(now);
-    var newTimezone = moment.tz.zone(timezone).utcOffset(now);
-    // calculate the difference in hours
-    const difference = (currentTimezone - newTimezone) / 60;
+  const n = useRef(null);
+  const t = useRef(null);
 
-    return difference > 0 ? `+${difference}` : difference;
+  const formatDuration = (seconds) => {
+    return new Date(seconds * 1000 * 60).toISOString().substring(11, 11 + 5);
   };
 
-  var n = useRef(null);
-  var t = useRef(null);
+  const getTimeDifference = (timezone) => {
+    const now: any = moment.utc(); 
+    const guessed = moment.tz.guess();
+    const currentTimezone = moment.tz.zone(guessed).utcOffset(now);
+    const newTimezone = moment.tz.zone(timezone).utcOffset(now); 
+    const difference = currentTimezone - newTimezone; 
+    console.log(difference)
+
+    return difference > 0
+      ? `+${formatDuration(difference)}`
+      : `-${formatDuration(difference * -1)}`;
+  };
 
   const getTheDay = (date) => {
     const yesterday = moment().subtract(1, "days").format(dateFormat);
