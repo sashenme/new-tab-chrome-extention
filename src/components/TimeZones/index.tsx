@@ -6,37 +6,37 @@ export default function TimeZones() {
     {
       id: "1",
       city: "Colombo",
-      country_emoji: "🇱🇰",
+      country: "lk",
       timezone: "Asia/Colombo",
     },
     {
       id: "2",
       city: "Melbourne",
-      country_emoji: "🇦🇺",
+      country: "au",
       timezone: "Australia/Melbourne",
     },
     {
       id: "3",
       city: "Vancouver",
-      country_emoji: "🇨🇦",
+      country: "ca",
       timezone: "America/Vancouver",
     },
     {
       id: "4",
       city: "Halifax",
-      country_emoji: "🇨🇦",
+      country: "ca",
       timezone: "America/Halifax",
     },
     {
       id: "5",
       city: "Singapore",
-      country_emoji: "🇸🇬",
+      country: "sg",
       timezone: "Asia/Singapore",
     },
     {
       id: "6",
       city: "Dubai",
-      country_emoji: "🇦🇪",
+      country: "ae",
       timezone: "Asia/Dubai",
     },
   ];
@@ -48,6 +48,7 @@ export default function TimeZones() {
           key={favorite.id}
           city={favorite.city}
           timezone={favorite.timezone}
+          country={favorite.country}
         />
       ))}
     </div>

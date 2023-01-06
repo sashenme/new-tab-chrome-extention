@@ -4,13 +4,13 @@ import moment from "moment-timezone";
 interface TimeSlotProps {
   city: string;
   timezone: string;
-  country_emoji: string;
+  country: string;
 }
 
 const TimeSlot: React.FC<TimeSlotProps> = ({
   city,
   timezone,
-  country_emoji,
+  country,
 }) => {
   const [timeDiff, setTimeDiff] = useState("");
   const [time, setTime] = useState("");
@@ -58,9 +58,10 @@ const TimeSlot: React.FC<TimeSlotProps> = ({
 
   return (
     <div className="text-center text-white bg-gradient-to-bl from-slate-300/30 to-slate-100/10 px-6 py-4 rounded-md backdrop-blur-sm border-solid border border-white/20">
-      <h2 className="text-2xl opacity-70 mb-1">
-        {country_emoji} {city}
-      </h2>
+      <div className="text-2xl opacity-70 mb-1 flex gap-2 items-center justify-center">
+        <img src={`https://countryflagsapi.com/svg/${country}`} crossOrigin="anonymous" alt=""  className="h-4"/>
+        {city}
+      </div>
       <h1 className="text-4xl font-bold">{time}</h1>
       <div className="text-sm">{date} {timeDiff}</div>
     </div>
