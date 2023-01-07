@@ -62,3 +62,16 @@ export const getWeatherIcon = (icon) => {
 
   return iconName;
 };
+
+export const getTimeformat = (hasSeconds, is24) => {
+  let timeFormat;
+
+  if(is24 && hasSeconds){
+    timeFormat = 'HH:mm:ss'
+  }else if(!is24 && hasSeconds){
+    timeFormat = 'hh:mm:ss A'
+  }else{
+    timeFormat = 'hh:mm A'
+  }
+  return timeFormat;
+}
