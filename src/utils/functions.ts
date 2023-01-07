@@ -33,10 +33,10 @@ export const getWeatherIcon = (icon) => {
       iconName = "shower-rain";
       break; 
     case "10d":
-      iconName = "rain-day";
+      iconName = "rainy-day";
       break;
     case "10n":
-      iconName = "rain-night";
+      iconName = "rainy-night";
       break; 
     case "11d":
       iconName = "thunder-rain";

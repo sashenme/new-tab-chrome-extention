@@ -44,6 +44,7 @@ const Weather = () => {
         const data: WeatherResponse = await http(url);
         const { temp, feels_like } = data.main;
         const { description, main, icon } = data.weather[0];
+        console.log(temp);
         setCurrentWeather({
           temp,
           feels_like,
@@ -58,6 +59,11 @@ const Weather = () => {
     getWeather();
   }, [url, location]);
 
+  const roundUpTemp = temp => {
+   const rounded =  Number(currentWeather.temp).toFixed(0)
+   return rounded === '-0' ? 0 : rounded;
+  }
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       setLocation({
@@ -67,7 +73,7 @@ const Weather = () => {
       setUrl(
         `${openWeatherApi}&lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${unit.name}`
       );
-    });
+    }); 
   }, []);
 
   return (
@@ -75,7 +81,7 @@ const Weather = () => {
       <div className="flex items-center gap-4">
         <img src={`img/icons/${getWeatherIcon(currentWeather.icon)}.svg`} alt="" className="w-8" />
         <div className="text-4xl text-white font-bold flex">
-          <span>{`${Number(currentWeather.temp).toFixed(0)}`}</span>
+          <span>{`${roundUpTemp(currentWeather.temp)}`}</span>
           <span className="text-2xl">{unit.temperature}</span>
         </div>
       </div>
