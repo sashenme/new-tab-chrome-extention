@@ -17,15 +17,15 @@ interface WeatherResponse {
 const Weather = () => {
   const [error, setError] = useState(false);
   const [currentWeather, setCurrentWeather] = useState({
-    temp: "1",
-    feels_like: "-1",
+    temp: 1,
+    feels_like: 1,
     description: "snowing",
     icon: "03d",
   });
 
-  const [location, setLocation] = useState({ lat: 0, lang: 0 });
+  const [location, setLocation] = useState({ lat: 0, long: 0 });
   let [url, setUrl] = useState(
-    `${openWeatherApi}&lat=${location.lat}&lon=${location.lang}&units=${unit.name}`
+    `${openWeatherApi}&lat=${location.lat}&lon=${location.long}&units=${unit.name}`
   );
 
   async function http<T>(request: RequestInfo): Promise<T> {
@@ -46,8 +46,7 @@ const Weather = () => {
         setCurrentWeather({
           temp,
           feels_like,
-          description,
-          main,
+          description, 
           icon,
         });
       } catch (e) {
