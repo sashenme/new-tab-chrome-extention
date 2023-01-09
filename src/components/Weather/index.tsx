@@ -44,7 +44,6 @@ const Weather = () => {
         const data: WeatherResponse = await http(url);
         const { temp, feels_like } = data.main;
         const { description, main, icon } = data.weather[0];
-        console.log(temp);
         setCurrentWeather({
           temp,
           feels_like,

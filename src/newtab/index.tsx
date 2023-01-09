@@ -12,7 +12,7 @@ const NewTab = () => {
   return (
     <div className="max-w-[1620px] mx-auto p-4  font-sans">
       <TimeZones />
-      <div className="grid grid-cols-2 mt-20 gap-40">
+      <div className="grid md:grid-cols-2 mt-20 gap-40">
         <div>
           <TodaysDate />
           <Weather />
