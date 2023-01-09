@@ -7,6 +7,12 @@ interface WithKeyProps {
   url: string;
 }
 
+const getDomain = url =>{
+  let domain = (new URL(url));
+  return domain.hostname.replace(/^[^.]+\./g, "");
+
+}
+
 const QuickLink: React.FC<WithKeyProps> = ({ title, url }) => {
   return (
     <a
@@ -15,7 +21,8 @@ const QuickLink: React.FC<WithKeyProps> = ({ title, url }) => {
     >
       <div className="grid gap-2 justify-center text-center">
         <img
-          src={`${faviconImg}${url}`}
+          // src={`${faviconImg}${url}`}
+          src={`${faviconImg}${getDomain(url)}`}
           className="w-7 mx-auto"
         />
         <span className="text-xs text-center max-w-[80px]">{title.substring(0,20)}</span>
