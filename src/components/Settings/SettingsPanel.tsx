@@ -18,8 +18,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
   };
 
   const handleSave = () => {
-      chrome.storage.sync.set({ widgets: widgets }, () => {
-        console.log(`Toggle is ${widgets}`);
+      chrome.storage.sync.set({ widgets: widgets }, () => { 
         onClose();
       });
   };
@@ -28,9 +27,10 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
     console.log(widgets);
   }, [widgets]);
 
+  const storageCache = { count: 0 };
   useEffect(() => {
     chrome.storage.sync.get(["widgets"]).then((result) => {
-      setWidgets(result.widgets)
+      result.widgets && setWidgets(result.widgets)
     });
   }, []);
 

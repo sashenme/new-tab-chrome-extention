@@ -9,10 +9,12 @@ import TodaysDate from "../components/TodaysDate";
 import Weather from "../components/Weather";
 
 const NewTab = () => {
-  const [widgets, setWidgets] = useState({timezones: false})
+  const [widgets, setWidgets] = useState({timezones: true})
   useEffect(() => {
     chrome.storage.sync.get(["widgets"]).then((result) => {
-      setWidgets(result.widgets)
+      result.widgets && setWidgets(result.widgets) 
+    }).catch((e)=>{
+      console.log(e)
     });
   }, [widgets]);
   return (
