@@ -5,5 +5,5 @@
   "chrome_url_overrides":{
     "newtab": "newtab.html"
   },
-  "permissions":["geolocation","topSites"]
+  "permissions":["geolocation","topSites","storage"]
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import Background from "../components/Background";
 import QuickLinks from "../components/QuickLinks";
 import Search from "../components/Search";
@@ -9,9 +9,15 @@ import TodaysDate from "../components/TodaysDate";
 import Weather from "../components/Weather";
 
 const NewTab = () => {
+  const [widgets, setWidgets] = useState({timezones: false})
+  useEffect(() => {
+    chrome.storage.sync.get(["widgets"]).then((result) => {
+      setWidgets(result.widgets)
+    });
+  }, [widgets]);
   return (
     <div className="max-w-[1620px] mx-auto p-4  font-sans">
-      <TimeZones />
+    {widgets.timezones && <TimeZones />} 
       <div className="grid md:grid-cols-2 mt-20 gap-40">
         <div>
           <TodaysDate />
