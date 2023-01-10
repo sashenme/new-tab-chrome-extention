@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Section from "./Section";
+import Section from "../Section";
 
 const Timezones = ({onToggle, isActive}) => { 
   return (

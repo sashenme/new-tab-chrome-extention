@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import CloseIcon from "../../assets/icons/CloseIcon";
 import { initialWidgets } from "../../utils/constants";
 import QuickLinks from "./Sections/QuickLinks";
 import Search from "./Sections/Search";
 import TodaysDate from "./Sections/TodaysDate";
 import Weather from "./Sections/Weather";
-import Timezones from "./Timezones";
+import Timezones from "./Sections/Timezones";
+import Header from "./Sections/Header";
 
 interface SettingsPanelProps {
   isPanelOpen: boolean;
@@ -62,12 +62,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
       }`}
     >
       <div className="self-start">
-        <header className="flex justify-between items-center">
-          <h1 className="text-3xl font-bold">Settings</h1>
-          <button className="px-2" onClick={onClose}>
-            <CloseIcon />
-          </button>
-        </header>
+        <Header onClose={onClose}/>
         <Timezones onToggle={toggleTimezones} isActive={widgets.timezones} />
         <TodaysDate onToggle={toggleTodaysDate} isActive={widgets.todaysDate} />
         <Weather onToggle={toggleWeather} isActive={widgets.weather} />
