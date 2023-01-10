@@ -6,6 +6,7 @@ import TodaysDate from "./Sections/TodaysDate";
 import Weather from "./Sections/Weather";
 import Timezones from "./Sections/Timezones";
 import Header from "./Sections/Header";
+import Footer from "./Sections/Footer";
 
 interface SettingsPanelProps {
   isPanelOpen: boolean;
@@ -18,36 +19,15 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
 }) => {
   const [widgets, setWidgets] = useState(initialWidgets);
 
-  const toggleTimezones = () => {
-    setWidgets({ ...widgets, timezones: !widgets.timezones });
-  };
-
-  const toggleTodaysDate = () => {
-    setWidgets({ ...widgets, todaysDate: !widgets.todaysDate });
-  };
-
-  const toggleWeather = () => {
-    setWidgets({ ...widgets, weather: !widgets.weather });
-  };
-
-  const toggleSearch = () => {
-    setWidgets({ ...widgets, search: !widgets.search });
-  };
-
-  const toggleQuickLinks = () => {
-    setWidgets({ ...widgets, quickLinks: !widgets.quickLinks });
-  };
+  const toggleSection = (section: string) => {
+    setWidgets({ ...widgets, [`${section}`]: !widgets[section] });
+  }
 
   const handleSave = () => {
     chrome.storage.sync.set({ widgets: widgets }, () => {
-      console.log(widgets);
       onClose();
     });
   };
-
-  useEffect(() => {
-    console.log(widgets);
-  }, [widgets]);
 
   useEffect(() => {
     chrome.storage.sync.get(["widgets"]).then((result) => {
@@ -62,24 +42,14 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
       }`}
     >
       <div className="self-start">
-        <Header onClose={onClose}/>
-        <Timezones onToggle={toggleTimezones} isActive={widgets.timezones} />
-        <TodaysDate onToggle={toggleTodaysDate} isActive={widgets.todaysDate} />
-        <Weather onToggle={toggleWeather} isActive={widgets.weather} />
-        <Search onToggle={toggleSearch} isActive={widgets.search} />
-        <QuickLinks onToggle={toggleQuickLinks} isActive={widgets.quickLinks} />
+        <Header onClose={onClose} />
+        <Timezones onToggle={()=>toggleSection('timezones')} isActive={widgets.timezones} />
+        <TodaysDate onToggle={()=>toggleSection('todaysDate')} isActive={widgets.todaysDate} />
+        <Weather onToggle={()=>toggleSection('weather')} isActive={widgets.weather} />
+        <Search onToggle={()=>toggleSection('search')} isActive={widgets.search} />
+        <QuickLinks onToggle={()=>toggleSection('quickLinks')} isActive={widgets.quickLinks} />
       </div>
-      <div className="grid grid-cols-2 gap-2 self-end">
-        <button
-          className="px-4 py-3 bg-cyan-500 text-sm font-bold rounded-md"
-          onClick={handleSave}
-        >
-          Save changes
-        </button>
-        <button className="px-4 py-3 bg-slate-500 text-sm font-bold rounded-md">
-          Reset to all
-        </button>
-      </div>
+      <Footer handleSave={handleSave} />
     </div>
   );
 };
