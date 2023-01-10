@@ -1,3 +1,5 @@
+import { openWeatherApi } from "./apis";
+
 export const getWeatherIcon = (icon) => {
   let iconName = "";
 
@@ -74,4 +76,8 @@ export const getTimeformat = (hasSeconds, is24) => {
     timeFormat = 'hh:mm A'
   }
   return timeFormat;
+}
+ 
+export const weatherApiUrl = (lat: number,long:number, unit:string) => {
+  return `${openWeatherApi}&lat=${lat}&lon=${long}&units=${unit}`;
 }

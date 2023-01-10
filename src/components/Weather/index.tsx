@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { openWeatherApi } from "../../utils/apis";
 // import { unit } from "../../utils/constants";
-import { getWeatherIcon } from "../../utils/functions";
+import { getWeatherIcon, weatherApiUrl } from "../../utils/functions";
 
 interface Main {
   feels_like: number;
@@ -43,8 +43,10 @@ const initialData = {
 const Weather = () => {
   const [currentWeather, setCurrentWeather] = useState<currentWeather>(initialData.currentWeather);
   const [location, setLocation] = useState<Location>({ lat: 0, long: 0 });
-  const initialUrl = `${openWeatherApi}&lat=${location.lat}&lon=${location.long}&units=${unit.name}`;
+  const initialUrl = weatherApiUrl(location.lat, location.long, unit.name);
   let [url, setUrl] = useState(initialUrl);
+
+  
 
   async function http<T>(request: RequestInfo): Promise<T> {
     const response = await fetch(request);
@@ -56,6 +58,7 @@ const Weather = () => {
     const rounded = Number(temp).toFixed(0);
     return rounded === "-0" ? 0 : rounded;
   };
+  
 
   useEffect(() => {
     const getWeather = async () => {
@@ -86,9 +89,7 @@ const Weather = () => {
         lat: position.coords.latitude,
         long: position.coords.longitude,
       });
-      setUrl(
-        `${openWeatherApi}&lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${unit.name}`
-      );
+      setUrl(weatherApiUrl(position.coords.latitude, position.coords.longitude, unit.name));
     });
   }, []);
 
