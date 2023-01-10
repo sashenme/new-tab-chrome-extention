@@ -23,10 +23,10 @@ const NewTab = () => {
     {widgets.timezones && <TimeZones />} 
       <div className="grid md:grid-cols-2 mt-20 gap-40">
         <div>
-          <TodaysDate />
+          {widgets.todaysDate &&  <TodaysDate />}
           {widgets.weather && <Weather /> }
-          <Search />
-          <QuickLinks />
+          {widgets.search && <Search /> } 
+          {widgets.quickLinks && <QuickLinks />}
         </div>
         <div>
           <Tasks />

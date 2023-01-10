@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import CloseIcon from "../../assets/icons/CloseIcon";
 import { initialWidgets } from "../../utils/constants";
+import QuickLinks from "./Sections/QuickLinks";
+import Search from "./Sections/Search";
+import TodaysDate from "./Sections/TodaysDate";
 import Weather from "./Sections/Weather";
 import Timezones from "./Timezones";
 
@@ -18,13 +21,26 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
   const toggleTimezones = () => {
     setWidgets({ ...widgets, timezones: !widgets.timezones });
   };
+
+  const toggleTodaysDate = () => {
+    setWidgets({ ...widgets, todaysDate: !widgets.todaysDate });
+  };
+
   const toggleWeather = () => {
     setWidgets({ ...widgets, weather: !widgets.weather });
   };
 
+  const toggleSearch = () => {
+    setWidgets({ ...widgets, search: !widgets.search });
+  };
+
+  const toggleQuickLinks = () => {
+    setWidgets({ ...widgets, quickLinks: !widgets.quickLinks });
+  };
+
   const handleSave = () => {
     chrome.storage.sync.set({ widgets: widgets }, () => {
-      console.log(widgets)
+      console.log(widgets);
       onClose();
     });
   };
@@ -53,7 +69,10 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
           </button>
         </header>
         <Timezones onToggle={toggleTimezones} isActive={widgets.timezones} />
+        <TodaysDate onToggle={toggleTodaysDate} isActive={widgets.todaysDate} />
         <Weather onToggle={toggleWeather} isActive={widgets.weather} />
+        <Search onToggle={toggleSearch} isActive={widgets.search} />
+        <QuickLinks onToggle={toggleQuickLinks} isActive={widgets.quickLinks} />
       </div>
       <div className="grid grid-cols-2 gap-2 self-end">
         <button
