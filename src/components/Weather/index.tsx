@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { openWeatherApi } from "../../utils/apis";
-import { unit } from "../../utils/constants";
+// import { unit } from "../../utils/constants";
 import {getWeatherIcon} from "../../utils/functions";
 
 interface Main {
@@ -14,6 +14,8 @@ interface WeatherResponse {
   main: Main;
   weather: any;
 }
+
+const unit = { name: "metric", temperature: "°C", label:"Celsius" };
 
 const Weather = () => {
   const [error, setError] = useState(false);
@@ -34,6 +36,7 @@ const Weather = () => {
     const body = await response.json();
     return body;
   }
+ 
 
   useEffect(() => {
     const getWeather = async () => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { initialWidgets, unit } from "../../utils/constants";
+import { initialWeather, initialWidgets } from "../../utils/constants";
 import QuickLinks from "./Sections/QuickLinks";
 import Search from "./Sections/Search";
 import TodaysDate from "./Sections/TodaysDate";
@@ -18,14 +18,18 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
   isPanelOpen,
 }) => {
   const [widgets, setWidgets] = useState(initialWidgets);
-  // const [weather, setWeather] = useState({unit: unit})
+  const [weather, setWeather] = useState(initialWeather);
 
   const toggleSection = (section: string) => {
     setWidgets({ ...widgets, [`${section}`]: !widgets[section] });
-  }
+  };
+
+  const handleUnitChange = (e) => {
+    setWeather({...weather, unit: e.target.value});
+  };
 
   const handleSave = () => {
-    chrome.storage.sync.set({ widgets: widgets }, () => {
+    chrome.storage.sync.set({ widgets: widgets, weather: weather }, () => {
       onClose();
     });
   };
@@ -34,7 +38,15 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
     chrome.storage.sync.get(["widgets"]).then((result) => {
       result.widgets && setWidgets(result.widgets);
     });
+    chrome.storage.sync.get(["weather"]).then((result) => {
+      result.weather && setWeather(result.weather);
+    });
   }, []);
+
+
+  useEffect(()=>{
+    console.log(weather)
+  },[weather])
 
   return (
     <div
@@ -44,11 +56,28 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
     >
       <div className="self-start">
         <Header onClose={onClose} />
-        <Timezones onToggle={()=>toggleSection('timezones')} isActive={widgets.timezones} />
-        <TodaysDate onToggle={()=>toggleSection('todaysDate')} isActive={widgets.todaysDate} />
-        <Weather onToggle={()=>toggleSection('weather')} isActive={widgets.weather} onUnitChange={()=>{}}/>
-        <Search onToggle={()=>toggleSection('search')} isActive={widgets.search} />
-        <QuickLinks onToggle={()=>toggleSection('quickLinks')} isActive={widgets.quickLinks} />
+        <Timezones
+          onToggle={() => toggleSection("timezones")}
+          isActive={widgets.timezones}
+        />
+        <TodaysDate
+          onToggle={() => toggleSection("todaysDate")}
+          isActive={widgets.todaysDate}
+        />
+        <Weather
+          onToggle={() => toggleSection("weather")}
+          isActive={widgets.weather}
+          selectedUnit={weather.unit}
+          onUnitChange={handleUnitChange}
+        />
+        <Search
+          onToggle={() => toggleSection("search")}
+          isActive={widgets.search}
+        />
+        <QuickLinks
+          onToggle={() => toggleSection("quickLinks")}
+          isActive={widgets.quickLinks}
+        />
       </div>
       <Footer handleSave={handleSave} />
     </div>
