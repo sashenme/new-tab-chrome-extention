@@ -7,9 +7,10 @@ import Tasks from "../components/Tasks";
 import TimeZones from "../components/TimeZones";
 import TodaysDate from "../components/TodaysDate";
 import Weather from "../components/Weather";
+import { initialWidgets } from "../utils/constants";
 
 const NewTab = () => {
-  const [widgets, setWidgets] = useState({timezones: true})
+  const [widgets, setWidgets] = useState(initialWidgets)
   useEffect(() => {
     chrome.storage.sync.get(["widgets"]).then((result) => {
       result.widgets && setWidgets(result.widgets) 
@@ -23,7 +24,7 @@ const NewTab = () => {
       <div className="grid md:grid-cols-2 mt-20 gap-40">
         <div>
           <TodaysDate />
-          <Weather />
+          {widgets.weather && <Weather /> }
           <Search />
           <QuickLinks />
         </div>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CloseIcon from "../../assets/icons/CloseIcon";
+import { initialWidgets } from "../../utils/constants";
+import Weather from "./Sections/Weather";
 import Timezones from "./Timezones";
 
 interface SettingsPanelProps {
@@ -11,26 +13,29 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
   onClose,
   isPanelOpen,
 }) => {
-  const [widgets, setWidgets] = useState({ timezones: true });
+  const [widgets, setWidgets] = useState(initialWidgets);
 
   const toggleTimezones = () => {
-    setWidgets({ timezones: !widgets.timezones });
+    setWidgets({ ...widgets, timezones: !widgets.timezones });
+  };
+  const toggleWeather = () => {
+    setWidgets({ ...widgets, weather: !widgets.weather });
   };
 
   const handleSave = () => {
-      chrome.storage.sync.set({ widgets: widgets }, () => { 
-        onClose();
-      });
+    chrome.storage.sync.set({ widgets: widgets }, () => {
+      console.log(widgets)
+      onClose();
+    });
   };
 
   useEffect(() => {
     console.log(widgets);
   }, [widgets]);
 
-  const storageCache = { count: 0 };
   useEffect(() => {
     chrome.storage.sync.get(["widgets"]).then((result) => {
-      result.widgets && setWidgets(result.widgets)
+      result.widgets && setWidgets(result.widgets);
     });
   }, []);
 
@@ -47,7 +52,8 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
             <CloseIcon />
           </button>
         </header>
-        <Timezones onToggle={toggleTimezones} isActive={widgets.timezones}/>
+        <Timezones onToggle={toggleTimezones} isActive={widgets.timezones} />
+        <Weather onToggle={toggleWeather} isActive={widgets.weather} />
       </div>
       <div className="grid grid-cols-2 gap-2 self-end">
         <button
