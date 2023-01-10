@@ -1,6 +1,7 @@
 import { getTimeformat } from './functions';
 
-export const unit = { name: "metric", temperature: "°C" };
+export const unit = { name: "metric", temperature: "°C", label:"Celsius" };
+
 const showSeconds = false;
 const is24 = false;
 

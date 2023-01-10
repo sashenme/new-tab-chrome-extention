@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { initialWidgets } from "../../utils/constants";
+import { initialWidgets, unit } from "../../utils/constants";
 import QuickLinks from "./Sections/QuickLinks";
 import Search from "./Sections/Search";
 import TodaysDate from "./Sections/TodaysDate";
@@ -18,6 +18,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
   isPanelOpen,
 }) => {
   const [widgets, setWidgets] = useState(initialWidgets);
+  // const [weather, setWeather] = useState({unit: unit})
 
   const toggleSection = (section: string) => {
     setWidgets({ ...widgets, [`${section}`]: !widgets[section] });
@@ -45,7 +46,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
         <Header onClose={onClose} />
         <Timezones onToggle={()=>toggleSection('timezones')} isActive={widgets.timezones} />
         <TodaysDate onToggle={()=>toggleSection('todaysDate')} isActive={widgets.todaysDate} />
-        <Weather onToggle={()=>toggleSection('weather')} isActive={widgets.weather} />
+        <Weather onToggle={()=>toggleSection('weather')} isActive={widgets.weather} onUnitChange={()=>{}}/>
         <Search onToggle={()=>toggleSection('search')} isActive={widgets.search} />
         <QuickLinks onToggle={()=>toggleSection('quickLinks')} isActive={widgets.quickLinks} />
       </div>
