@@ -4,6 +4,12 @@ import TimeSlot from "./TimeSlot";
 export default function TimeZones() {
   const favoriteList = [
     {
+      id: "1x",
+      city: "Uppsala",
+      country: "se",
+      timezone: "Europe/Stockholm",
+    },
+    {
       id: "1",
       city: "Colombo",
       country: "lk",
@@ -33,12 +39,12 @@ export default function TimeZones() {
       country: "sg",
       timezone: "Asia/Singapore",
     },
-    {
-      id: "6",
-      city: "Dubai",
-      country: "ae",
-      timezone: "Asia/Dubai",
-    },
+    // {
+    //   id: "6",
+    //   city: "Dubai",
+    //   country: "ae",
+    //   timezone: "Asia/Dubai",
+    // },
   ];
 
   return (

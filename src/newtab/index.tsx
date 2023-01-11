@@ -11,13 +11,26 @@ import { initialWidgets } from "../utils/constants";
 
 const NewTab = () => {
   const [widgets, setWidgets] = useState(initialWidgets)
+
   useEffect(() => {
-    chrome.storage.sync.get(["widgets"]).then((result) => {
-      result.widgets && setWidgets(result.widgets) 
-    }).catch((e)=>{
-      console.log(e)
-    });
-  }, [widgets]);
+    const listener = () => {
+      chrome.storage.sync.get(["widgets"], (result) => {
+        result.widgets && setWidgets(result.widgets);
+      })
+    };
+    chrome.storage.onChanged.addListener(listener);
+    return () => {
+      chrome.storage.onChanged.removeListener(listener);
+    };
+  }, []);
+
+  useEffect(() => {
+    chrome.storage.sync.get(["widgets"], (result) => {
+      result.widgets && setWidgets(result.widgets);
+    })
+  }, []);
+
+
   return (
     <div className="max-w-[1620px] mx-auto p-4  font-sans">
     {widgets.timezones && <TimeZones />} 
