@@ -44,9 +44,9 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
   }, []);
 
 
-  useEffect(()=>{
-    console.log(weather)
-  },[weather])
+  // useEffect(()=>{
+  //   console.log(weather)
+  // },[weather])
 
   return (
     <div
