@@ -112,8 +112,10 @@ const Weather = () => {
   useEffect(() => {
     const listener = () => {
       chrome.storage.sync.get(["weather"], (result) => {
+        if(result.weather){          
         setWeatherSettings(result.weather);
         setUrl(weatherApiUrl(location.lat, location.long, result.weather))
+        }
       })
     };
     chrome.storage.onChanged.addListener(listener);
@@ -124,8 +126,10 @@ const Weather = () => {
 
   useEffect(() => {
     chrome.storage.sync.get(["weather"], (result) => {
-      setWeatherSettings(result.weather);
-      setUrl(weatherApiUrl(location.lat, location.long, result.weather))
+      if(result.weather){          
+        setWeatherSettings(result.weather);
+        setUrl(weatherApiUrl(location.lat, location.long, result.weather))
+        }
     })
   }, []);
 
