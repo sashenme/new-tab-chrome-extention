@@ -1,54 +1,70 @@
-import React from 'react'
+import React from "react";
 import Select from "react-select";
+import Background from "../../Background";
 
-interface SelectDropdownProps{
-  name: string,
-  options: {label: string; value: string}[] | []
-
+interface SelectDropdownProps {
+  name: string;
+  options: { label: string; value: string }[] | [];
+  onChange: (target: any) => void;
 }
 
-const SelectDropdown: React.FC<SelectDropdownProps> = ({options}) => {
+const styles = {
+  control: (baseStyles, state) => ({
+    ...baseStyles,
+    borderColor: state.isFocused
+      ? "rgba(255,255,255,0.25)"
+      : "rgba(255,255,255,0)",
+    background: state.isFocused ? "#232627" : "transparent",
+    color: "white",
+    "&:hover": { cursor: "text" },
+  }),
+  input: (baseStyles) => ({
+    ...baseStyles,
+    color: "white",
+    fontFamily: "Inter",
+  }),
+  singleValue: (baseStyles) => ({
+    ...baseStyles,
+    color: "white",
+    fontFamily: "Inter",
+  }),
+  menu: (baseStyles) => ({
+    ...baseStyles,
+    width: '280px',
+    background:'#232627',
+    border:'white'
+  }),
+  option: (baseStyles, state) => ({
+    ...baseStyles,
+    color: "white",
+    fontSize: ".75rem",
+    fontFamily: "Inter",
+    background: '#232627',
+    cursor: 'pointer',
+    "&:hover":{ background: '#3A444A'},
+  }),
+  indicatorSeparator: () => ({
+    display: "none",
+  }),
+  dropdownIndicator: (baseStyles, state) => ({
+    ...baseStyles,
+    opacity: state.isFocused ? "1" : "0",
+  }),
+};
+const SelectDropdown: React.FC<SelectDropdownProps> = ({
+  options,
+  onChange,
+}) => {
   return (
-    <div className='col-span-6 '>
-       <Select options={options} 
-          placeholder="Search city.."
-          className="text-base bg-transparent w- border border-transparent outline-0 focus:border-white/90 outline-white rounded-md px-2 py-1"
-
-        styles={{
-          control: (baseStyles, state) => ({
-            ...baseStyles,
-            borderColor: state.isFocused ? 'rgba(255,255,255,0.25)' : 'rgba(255,255,255,0)',
-            background: state.isFocused ? '#232627':'transparent',
-            color:'white',
-            '&:hover': {cursor: 'text'}
-          }),
-          input: (baseStyles) => ({
-            ...baseStyles,
-            color: 'white',            
-            fontFamily: 'Inter'
-          }),
-          singleValue: (baseStyles) => ({
-            ...baseStyles,
-            color: 'white',
-            fontFamily: 'Inter'
-          }),
-          option: (baseStyles, state) => ({
-            ...baseStyles,
-            color: 'black',
-            fontSize:'.75rem',
-            fontFamily: 'Inter'
-          }),
-          indicatorSeparator: () => ({
-            display:'none',
-          }),
-          dropdownIndicator: (baseStyles,state) => ({
-            ...baseStyles,
-            opacity:state.isFocused ? '1':'0',
-          }),
-        }}
+    <div className="col-span-6 ">
+      <Select
+        onChange={onChange}
+        options={options}
+        placeholder="Search city.."
+        styles={styles}
       />
     </div>
-  )
-}
+  );
+};
 
-export default SelectDropdown
+export default SelectDropdown;

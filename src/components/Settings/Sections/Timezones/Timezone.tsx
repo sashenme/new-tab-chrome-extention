@@ -7,29 +7,29 @@ import SelectDropdown from "../../Elements/SelectDropdown";
 
 const Timezone = ({ name, city }) => {
   const [cities, setCities] = useState([]);
+  const [selected, setSelected] = useState(null)
+
+  const handleSelect = (e) => {
+    setSelected(e.value);
+  }
 
   useEffect(()=>{
     const cityMapping = cityTimezones.cityMapping;
     let citiesOptions = [];
     cityMapping.forEach(city=> {
-      citiesOptions.push({label: city.city_ascii, value:city.timezone})
+      citiesOptions.push({label: `${city.city}, ${city.country}`, value:city})
     })
   setCities(citiesOptions)
   },[])
+  
   return (
     <div className="grid grid-cols-12 gap-4 items-center justify-between bg-gray-800/80 rounded-lg py-2 pl-2 pr-4">
       <button className="w-6">
         <GrabIcon />
       </button>
-      <SelectDropdown name={'cities'}options={cities} 
+      <SelectDropdown name={'cities'} options={cities} onChange={handleSelect} 
       />
-      {/* <input
-        type="text"
-        className="col-span-6 text-base text-white bg-transparent w- border border-transparent outline-0 focus:border-white/90 outline-white rounded-md px-2 py-1 hover:border-white/10"
-          value={city}
-        onChange={(e)=>console.log(e.target.value)}
-      /> */}
-      <span className="text-white/50 text-xs col-span-4">{name}</span>
+      <span className="text-white/50 text-xs col-span-4">{selected && selected.timezone}</span>
       <button className="justify-self-end col-2">
         <DeleteIcon />
       </button>
