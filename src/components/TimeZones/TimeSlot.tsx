@@ -73,12 +73,12 @@ const TimeSlot: React.FC<TimeSlotProps> = ({ city, timezone, country }) => {
   return (
     <div className="text-center text-white bg-gradient-to-bl from-slate-300/30 to-slate-100/10 px-6 py-4 rounded-md backdrop-blur-sm border-solid border border-white/20">
       <div className="text-2xl  mb-1 flex gap-2 items-center justify-center">
-        {/* <img
+        <img
           src={`${countryImgApi}/${country}`}
           crossOrigin="anonymous"
           alt=""
           className="h-4"
-        /> */}
+        />
         <span className="opacity-70">{city}</span>
       </div>
       <h1 className="text-4xl font-bold">{time}</h1>

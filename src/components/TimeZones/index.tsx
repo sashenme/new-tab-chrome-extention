@@ -73,9 +73,9 @@ export default function TimeZones() {
       {favoriteZones.map((favorite, index) => (
         <TimeSlot
           key={index}
-          city={favorite.label}
+          city={favorite.city}
           timezone={favorite.value}
-          country={'favorite.country'}
+          country={favorite.country}
         />
       ))}
     </div>

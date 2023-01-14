@@ -28,15 +28,12 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
       citiesOptions.push({
         label: `${city.city}, ${city.country}`,
         value: city.timezone,
+        city: city.city,
+        country: city.iso3
       });
     });
     setCities(citiesOptions);
   }, []);
-
-  useEffect(() => {
- console.log(favoriteZones)
-  }, [favoriteZones])
-  
 
   return (
     <Section title={"Timezones"} onToggle={onToggle} isActive={isActive}>
@@ -46,7 +43,7 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
           favoriteZone: favoriteZones,
         }}
         onSubmit={(values) => {
-          // console.log(values);
+          console.log(values);
           getFavorite(values)
         }}
       >
@@ -87,6 +84,14 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
                             setFieldValue(
                               `favoriteZone.${index}.label`,
                               values.label
+                            );
+                            setFieldValue(
+                              `favoriteZone.${index}.city`,
+                              values.city
+                            );
+                            setFieldValue(
+                              `favoriteZone.${index}.country`,
+                              values.country
                             );
                            handleSubmit();
                           }}
