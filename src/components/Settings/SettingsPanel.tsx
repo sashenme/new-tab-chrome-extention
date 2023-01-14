@@ -54,12 +54,13 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
 
   return (
     <div
-      className={`fixed grid bg-slate-900/60 backdrop-blur-lg max-w-lg w-full h-[100vh] top-0 left-0 px-8 py-10 text-white transition-all ease-in ${
+      className={`fixed grid bg-slate-900/60 backdrop-blur-lg max-w-lg w-full h-[100vh] top-0 left-0 pl-8 py-10 text-white transition-all ease-in ${
         !isPanelOpen ? "-left-2/4" : "left-0"
       }`}
     >
       <div className="self-start">
         <Header onClose={onClose} />
+        <div className="max-h-[80vh] overflow-y-auto pr-8">
         <Timezones
           onToggle={() => toggleSection("timezones")}
           isActive={widgets.timezones}
@@ -84,6 +85,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
           onToggle={() => toggleSection("quickLinks")}
           isActive={widgets.quickLinks}
         />
+        </div>
       </div>
       <Footer handleSave={handleSave} />
     </div>

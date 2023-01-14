@@ -114,13 +114,6 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
                 </>
               )}
             />
-            <button
-              onClick={() => handleSubmit()}
-              type="submit"
-              className="bg-green-400 px-2 py-1"
-            >
-              Submit
-            </button>
           </Form>
         )}
       </Formik>
