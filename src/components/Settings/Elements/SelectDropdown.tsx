@@ -6,6 +6,8 @@ interface SelectDropdownProps {
   name: string;
   options: { label: string; value: string }[] | [];
   onChange: (target: any) => void;
+  value?: any;
+  defaultValue?: any
 }
 
 const styles = {
@@ -30,18 +32,18 @@ const styles = {
   }),
   menu: (baseStyles) => ({
     ...baseStyles,
-    width: '280px',
-    background:'#232627',
-    border:'white'
+    width: "280px",
+    background: "#232627",
+    border: "white",
   }),
   option: (baseStyles, state) => ({
     ...baseStyles,
     color: "white",
     fontSize: ".75rem",
     fontFamily: "Inter",
-    background: '#232627',
-    cursor: 'pointer',
-    "&:hover":{ background: '#3A444A'},
+    background: "#232627",
+    cursor: "pointer",
+    "&:hover": { background: "#3A444A" },
   }),
   indicatorSeparator: () => ({
     display: "none",
@@ -54,10 +56,14 @@ const styles = {
 const SelectDropdown: React.FC<SelectDropdownProps> = ({
   options,
   onChange,
+  value,
+  defaultValue,
 }) => {
   return (
     <div className="col-span-6 ">
       <Select
+        value={value}
+        defaultValue={defaultValue}
         onChange={onChange}
         options={options}
         placeholder="Search city.."
