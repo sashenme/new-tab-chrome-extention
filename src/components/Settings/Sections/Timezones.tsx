@@ -35,12 +35,20 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
     setCities(citiesOptions);
   }, []);
 
+useEffect(()=>{
+  if(favoriteZones === null){
+    setZones([])
+  }else{
+    setZones(favoriteZones)
+  }
+},[favoriteZones])
   return (
     <Section title={"Timezones"} onToggle={onToggle} isActive={isActive}>
-     {favoriteZones && 
+     {zones && 
       <Formik
+      enableReinitialize
         initialValues={{
-          favoriteZone: favoriteZones,
+          favoriteZone: zones,
         }}
         onSubmit={(values) => {
           console.log(values);
