@@ -66,9 +66,6 @@ const Timezones = ({ onToggle, isActive }) => {
                       {cities.length > 0 && (
                         <Timezone
                           key={index}
-                          city={"Mokak"}
-                          timezone="hehhe"
-                          country={"Ashikland"}
                           name={`favoriteZone[${index}].type`}
                           options={cities}
                           value={cities.filter(
