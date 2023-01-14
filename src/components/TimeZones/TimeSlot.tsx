@@ -83,7 +83,7 @@ const TimeSlot: React.FC<TimeSlotProps> = ({ city, timezone, country }) => {
       </div>
       <h1 className="text-4xl font-bold">{time}</h1>
       <div className="text-sm">
-        {date}, {timeDiff}
+        {date}, {timeDiff === '-00:00' ? '0' : timeDiff}<small className="text-[10px]"> HRS</small>
       </div>
     </div>
   );

@@ -48,6 +48,7 @@ export default function TimeZones() {
   ];
 
   const [favoriteZones, setFavoriteZones] = useState([]);
+  const [grid, setGrid] = useState('');
 
   useEffect(() => {
     const listener = () => {
@@ -68,8 +69,33 @@ export default function TimeZones() {
     })
   }, []);
 
+  useEffect(()=>{
+    let gridClass = 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6';
+    switch(favoriteZones.length){
+      case 1:
+        gridClass =  'grid-cols-1';
+        break;
+      case 2: 
+        gridClass =  'grid-cols-1 sm:grid-cols-2';
+        break;
+      case 3: 
+        gridClass =  'grid-cols-1 sm:grid-cols-2 md:grid-cols-3';
+        break;
+      case 4: 
+        gridClass =  'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4';
+        break;
+      case 5: 
+        gridClass =  'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5';
+        break;
+      default:
+        gridClass = 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6';
+        break;
+    }
+    setGrid(gridClass)
+  },[favoriteZones]);
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 justify-between my-8">
+    <div className={`grid gap-8 justify-between my-8 ${grid}`}>
       {favoriteZones.map((favorite, index) => (
         <TimeSlot
           key={index}
