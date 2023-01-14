@@ -1,5 +1,6 @@
 import React from "react";
 import Select from "react-select";
+import { indicatorSeparatorCSS } from "react-select/dist/declarations/src/components/indicators";
 import Background from "../../Background";
 
 interface SelectDropdownProps {
@@ -19,7 +20,8 @@ const styles = {
       : "rgba(255,255,255,0)",
     background: state.isFocused ? "#232627" : "transparent",
     color: "white",
-    "&:hover": { cursor: "text" },
+    "&:hover": { cursor: "text", borderColor:'rgba(255,255,255,0.25)' ,
+   },
   }),
   input: (baseStyles) => ({
     ...baseStyles,

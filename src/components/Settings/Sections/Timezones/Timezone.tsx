@@ -43,9 +43,9 @@ const Timezone = ({ timezone, city, country, name, value, onChange, defaultValue
         onBlur={onBlur}
       />
       <span className="text-white/50 text-xs col-span-4">
-        {selected && selected.timezone}
+        {value && value[0].value}
       </span>
-      <button className="justify-self-end col-2" onClick={onDelete}>
+      <button className="justify-self-end col-2" onClick={onDelete} type="button">
         <DeleteIcon />
       </button>
     </div>
