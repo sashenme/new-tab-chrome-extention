@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect, useState} from "react";
 import TimeSlot from "./TimeSlot";
 
 export default function TimeZones() {
@@ -47,14 +47,35 @@ export default function TimeZones() {
     // },
   ];
 
+  const [favoriteZones, setFavoriteZones] = useState([]);
+
+  useEffect(() => {
+    const listener = () => {
+      chrome.storage.sync.get(["timezones"], (result) => {
+        result.timezones && setFavoriteZones(result.timezones);
+        console.log('resut',result)
+      })
+    };
+    chrome.storage.onChanged.addListener(listener);
+    return () => {
+      chrome.storage.onChanged.removeListener(listener);
+    };
+  }, []);
+
+  useEffect(() => {
+    chrome.storage.sync.get(["timezones"], (result) => {
+      result.timezones && setFavoriteZones(result.timezones);
+    })
+  }, []);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8 justify-between my-8">
-      {favoriteList.map((favorite) => (
+      {favoriteZones.map((favorite, index) => (
         <TimeSlot
-          key={favorite.id}
-          city={favorite.city}
-          timezone={favorite.timezone}
-          country={favorite.country}
+          key={index}
+          city={favorite.label}
+          timezone={favorite.value}
+          country={'favorite.country'}
         />
       ))}
     </div>

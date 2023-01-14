@@ -19,6 +19,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
 }) => {
   const [widgets, setWidgets] = useState(initialWidgets);
   const [weather, setWeather] = useState(initialWeather);
+  const [favoriteZones, setFavoriteZones] = useState(null)
 
   const toggleSection = (section: string) => {
     setWidgets({ ...widgets, [`${section}`]: !widgets[section] });
@@ -29,7 +30,7 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
   };
 
   const handleSave = () => {
-    chrome.storage.sync.set({ widgets: widgets, weather: weather }, () => {
+    chrome.storage.sync.set({ widgets: widgets, weather: weather, timezones: favoriteZones }, () => {
       onClose();
     });
   };
@@ -40,6 +41,9 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
     });
     chrome.storage.sync.get(["weather"]).then((result) => {
       result.weather && setWeather(result.weather);
+    });
+    chrome.storage.sync.get(["timezones"], (result) => {
+      result.timezones && setFavoriteZones(result.timezones);
     });
   }, []);
 
@@ -59,6 +63,8 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
         <Timezones
           onToggle={() => toggleSection("timezones")}
           isActive={widgets.timezones}
+          favoriteZones= {favoriteZones}
+          getFavorite={(e)=>setFavoriteZones(e.favoriteZone)}
         />
         <TodaysDate
           onToggle={() => toggleSection("todaysDate")}

@@ -17,9 +17,9 @@ const Button: React.FC<{ onClick: () => void }> = ({ onClick }) => (
   </button>
 );
 
-const Timezones = ({ onToggle, isActive }) => {
+const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
   const [cities, setCities] = useState([]);
-
+  const [zones, setZones] = useState(favoriteZones)
 
   useEffect(() => {
     const cityMapping = cityTimezones.cityMapping;
@@ -33,16 +33,21 @@ const Timezones = ({ onToggle, isActive }) => {
     setCities(citiesOptions);
   }, []);
 
+  useEffect(() => {
+ console.log(favoriteZones)
+  }, [favoriteZones])
+  
+
   return (
     <Section title={"Timezones"} onToggle={onToggle} isActive={isActive}>
+     {favoriteZones && 
       <Formik
         initialValues={{
-          favoriteZone: [
-            { label: "Colombo, Sri Lanka", value: "Asia/Colombo" },
-          ],
+          favoriteZone: favoriteZones,
         }}
         onSubmit={(values) => {
-          console.log(values);
+          // console.log(values);
+          getFavorite(values)
         }}
       >
         {({
@@ -83,11 +88,12 @@ const Timezones = ({ onToggle, isActive }) => {
                               `favoriteZone.${index}.label`,
                               values.label
                             );
+                           handleSubmit();
                           }}
                           onBlur={() =>
                             setFieldTouched(`favoriteZone.${index}.value`, true)
                           }
-                          onDelete={() => arrayHelpers.remove(index)}
+                          onDelete={() => {arrayHelpers.remove(index); handleSubmit()}}
                         />
                       )}
                     </div>
@@ -95,8 +101,8 @@ const Timezones = ({ onToggle, isActive }) => {
                   <Button
                     onClick={() =>
                       arrayHelpers.push({
-                        label: "Matara, Sri Lanka",
-                        value: "Asia/Colombo",
+                        label: "",
+                        value: "",
                       })
                     }
                   />
@@ -113,6 +119,7 @@ const Timezones = ({ onToggle, isActive }) => {
           </Form>
         )}
       </Formik>
+}
     </Section>
   );
 };
