@@ -3,9 +3,10 @@ import Select from "react-select";
 import Background from "../../Background";
 
 interface SelectDropdownProps {
-  name: string;
+  name?: string;
   options: { label: string; value: string }[] | [];
   onChange: (target: any) => void;
+  onBlur?: (target: any) => void;
   value?: any;
   defaultValue?: any
 }
@@ -56,6 +57,7 @@ const styles = {
 const SelectDropdown: React.FC<SelectDropdownProps> = ({
   options,
   onChange,
+  onBlur,
   value,
   defaultValue,
 }) => {
@@ -65,6 +67,7 @@ const SelectDropdown: React.FC<SelectDropdownProps> = ({
         value={value}
         defaultValue={defaultValue}
         onChange={onChange}
+        onBlur={onBlur}
         options={options}
         placeholder="Search city.."
         styles={styles}

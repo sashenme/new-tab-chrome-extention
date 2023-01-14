@@ -5,7 +5,7 @@ import GrabIcon from "../../../../assets/icons/GrabIcon";
 import cityTimezones from "city-timezones";
 import SelectDropdown from "../../Elements/SelectDropdown";
 
-const Timezone = ({ timezone, city, country }) => {
+const Timezone = ({ timezone, city, country, name, value, onChange, defaultValue, onBlur,options , onDelete}) => {
   const [cities, setCities] = useState([]);
   const [selected, setSelected] = useState(null);
 
@@ -34,16 +34,18 @@ const Timezone = ({ timezone, city, country }) => {
       <button className="w-6">
         <GrabIcon />
       </button>
-      {cities.length >0 && <SelectDropdown
-        name={"cities"}
-        options={cities}
-        onChange={handleSelect}
-        defaultValue={selected}
-      />}
+      <SelectDropdown
+        name={name}
+        options={options}
+        onChange={onChange}
+        defaultValue={defaultValue}
+        value={value}
+        onBlur={onBlur}
+      />
       <span className="text-white/50 text-xs col-span-4">
         {selected && selected.timezone}
       </span>
-      <button className="justify-self-end col-2">
+      <button className="justify-self-end col-2" onClick={onDelete}>
         <DeleteIcon />
       </button>
     </div>
