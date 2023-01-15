@@ -13,5 +13,9 @@
     "48": "/img/app_icons/48.png",
     "128": "/img/app_icons/128.png"
 },
-  "permissions":["geolocation","topSites","storage"]
+  "permissions":["geolocation","topSites","storage","identity"],
+  "oauth2": {
+    "client_id": "383083063419-mngvu1k07hdk7ell9v5u1mq6dct738nm.apps.googleusercontent.com",
+    "scopes":["https://www.googleapis.com/auth/tasks.readonly", "https://www.googleapis.com/auth/tasks"]
+  }
 }
