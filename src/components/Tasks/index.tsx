@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+import GoogleIcon from "../../assets/icons/GoogleIcon";
 import NewTask from "./NewTask";
+import NoAuth from "./NoAuth";
+import NoTasks from "./NoTasks";
 import TaskItem from "./TaskItem";
 
 const Tasks = () => {
@@ -147,15 +150,15 @@ const Tasks = () => {
   }, [accessToken]);
 
   return (
-    <div className="text-white text-lg bg-gradient-to-bl from-slate-300/30 to-slate-100/10 py-8 rounded-md backdrop-blur-sm max-w-[768px] border-solid border border-white/20 ml-auto">
+    <div className="text-white text-lg bg-gradient-to-bl from-slate-300/30 to-slate-100/10 py-8 rounded-md backdrop-blur-sm max-w-[768px] border-solid border border-white/20 ml-auto min-h-[600px]">
       {accessToken ? (
         <div>
           {taskList && (
-            <div className="px-6">
+            <div className="px-6 pb-8">
               <h1 className="text-3xl font-semibold">Google Tasks</h1>
               <select
                 onChange={(e) => setSelectedTaskList(e.target.value)}
-                className="text-gray-100 bg-transparent "
+                className="text-gray-100 bg-transparent"
               >
                 {taskList.map((list) => (
                   <option key={list.id} value={list.id}>
@@ -179,22 +182,28 @@ const Tasks = () => {
           >
             Delete selected TaskList
           </button> */}
-          <div className="grid px-6 pt-8">
-            {tasks &&
-              tasks.length > 0 &&
-              tasks
-                .filter((task) => task.status !== "completed")
-                .map((task) => (
-                  <TaskItem
-                    id={`task-${task.id}`}
-                    title={task.title}
-                    checked={task.status === "completed"}
-                    onComplete={() => completeTask(task)}
-                    onDelete={() => deleteTask(task.id)}
-                  />
-                ))}
+          <div className="grid px-6 overflow-y-auto max-h-[280px]">
+            {tasks && tasks.length > 0 ? (
+              tasks.filter((task) => task.status !== "completed").length > 0 ? (
+                tasks
+                  .filter((task) => task.status !== "completed")
+                  .map((task) => (
+                    <TaskItem
+                      id={`task-${task.id}`}
+                      title={task.title}
+                      checked={task.status === "completed"}
+                      onComplete={() => completeTask(task)}
+                      onDelete={() => deleteTask(task.id)}
+                    />
+                  ))
+              ) : (
+                <NoTasks title="All tasks complete" description="Nice work!" />
+              )
+            ) : (
+              <NoTasks title="No tasks for this list" />
+            )}
           </div>
-          <div className="px-6 py-4">
+          <div className="px-6 pt-4">
             <h2>
               Completed Tasks (
               {tasks &&
@@ -216,21 +225,15 @@ const Tasks = () => {
                     />
                   ))}
             </div>
-            <NewTask
-            onSubmit={(e) => newTask(e)}
-            onChange={(e) => setText(e.target.value)}
-            value={text}
-          />
-          </div>
-         
+          </div> 
+          <NewTask
+              onSubmit={(e) => newTask(e)}
+              onChange={(e) => setText(e.target.value)}
+              value={text}
+            />
         </div>
       ) : (
-        <button
-          className="px-2 py-1 flex bg-amber-500"
-          onClick={() => getAuth()}
-        >
-          Authenticate
-        </button>
+        <NoAuth getAuth={() => getAuth()} />
       )}
     </div>
   );
