@@ -150,88 +150,82 @@ const Tasks = () => {
   }, [accessToken]);
 
   return (
-    <div className="text-white text-lg bg-gradient-to-bl from-slate-300/30 to-slate-100/10 py-8 rounded-md backdrop-blur-sm max-w-[768px] border-solid border border-white/20 ml-auto min-h-[600px]">
+    <div className="text-white text-lg grid grid-rows-2 bg-gradient-to-bl from-slate-300/30 to-slate-100/10 py-8 rounded-md backdrop-blur-sm max-w-[768px] border-solid border border-white/20 ml-auto min-h-[70vh] max-h-[70vh]">
       {accessToken ? (
-        <div>
-          {taskList && (
-            <div className="px-6 pb-8">
-              <h1 className="text-3xl font-semibold">Google Tasks</h1>
-              <select
-                onChange={(e) => setSelectedTaskList(e.target.value)}
-                className="text-gray-100 bg-transparent"
-              >
-                {taskList.map((list) => (
-                  <option key={list.id} value={list.id}>
-                    {list.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          {/* <button
-            className="bg-green-400 px-4 py-2 text-white"
-            onClick={() => makeNewTaskList("New Title")}
-          >
-            New List
-          </button> */}
-          {/*          
-          <button
-            className="p-1 bg-red-400 "
-            onClick={() => deleteTaskList(selectedTaskList)}
-          >
-            Delete selected TaskList
-          </button> */}
-          <div className="grid px-6 overflow-y-auto max-h-[280px]">
-            {tasks && tasks.length > 0 ? (
-              tasks.filter((task) => task.status !== "completed").length > 0 ? (
-                tasks
-                  .filter((task) => task.status !== "completed")
-                  .map((task) => (
-                    <TaskItem
-                      id={`task-${task.id}`}
-                      title={task.title}
-                      checked={task.status === "completed"}
-                      onComplete={() => completeTask(task)}
-                      onDelete={() => deleteTask(task.id)}
-                    />
-                  ))
-              ) : (
-                <NoTasks title="All tasks complete" description="Nice work!" />
-              )
-            ) : (
-              <NoTasks title="No tasks for this list" />
-            )}
-          </div>
-          <div className="px-6 pt-4">
-            <h2>
-              Completed Tasks (
-              {tasks &&
-                tasks.filter((task) => task.status === "completed").length}
-              )
-            </h2>
-            <div className="grid">
-              {tasks &&
-                tasks.length > 0 &&
-                tasks
-                  .filter((task) => task.status === "completed")
-                  .map((task) => (
-                    <TaskItem
-                      id={`task-${task.id}`}
-                      title={task.title}
-                      checked={task.status === "completed"}
-                      onComplete={() => completeTask(task)}
-                      onDelete={() => deleteTask(task.id)}
-                    />
+        <>
+          <div>
+            {taskList && (
+              <div className="px-6 pb-8">
+                <h1 className="text-3xl font-semibold">Google Tasks</h1>
+                <select
+                  onChange={(e) => setSelectedTaskList(e.target.value)}
+                  className="text-gray-100 bg-transparent"
+                >
+                  {taskList.map((list) => (
+                    <option key={list.id} value={list.id}>
+                      {list.title}
+                    </option>
                   ))}
+                </select>
+              </div>
+            )}
+            <div className="grid px-6 overflow-y-auto max-h-[280px]">
+              {tasks && tasks.length > 0 ? (
+                tasks.filter((task) => task.status !== "completed").length >
+                0 ? (
+                  tasks
+                    .filter((task) => task.status !== "completed")
+                    .map((task) => (
+                      <TaskItem
+                        id={`task-${task.id}`}
+                        title={task.title}
+                        checked={task.status === "completed"}
+                        onComplete={() => completeTask(task)}
+                        onDelete={() => deleteTask(task.id)}
+                      />
+                    ))
+                ) : (
+                  <NoTasks
+                    title="All tasks complete"
+                    description="Nice work!"
+                  />
+                )
+              ) : (
+                <NoTasks title="No tasks for this list" />
+              )}
             </div>
-          </div> 
-          <NewTask
+          </div>
+          <div className="row-auto self-end">
+            <div className="px-6 pt-4">
+              <h2>
+                Completed Tasks (
+                {tasks &&
+                  tasks.filter((task) => task.status === "completed").length}
+                )
+              </h2>
+              <div className="grid">
+                {tasks &&
+                  tasks.length > 0 &&
+                  tasks
+                    .filter((task) => task.status === "completed")
+                    .map((task) => (
+                      <TaskItem
+                        id={`task-${task.id}`}
+                        title={task.title}
+                        checked={task.status === "completed"}
+                        onComplete={() => completeTask(task)}
+                        onDelete={() => deleteTask(task.id)}
+                      />
+                    ))}
+              </div>
+            </div>
+            <NewTask
               onSubmit={(e) => newTask(e)}
               onChange={(e) => setText(e.target.value)}
               value={text}
             />
-        </div>
+          </div>
+        </>
       ) : (
         <NoAuth getAuth={() => getAuth()} />
       )}
