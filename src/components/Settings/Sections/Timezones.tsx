@@ -43,29 +43,6 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
     }
   }, [favoriteZones]);
 
-  //save reference for dragItem and dragOverItem
-  const dragItem = React.useRef<any>(null);
-  const dragOverItem = React.useRef<any>(null);
-
-  //const handle drag sorting
-  const handleSort = () => {
-    //duplicate items
-    let _fruitItems = [...zones];
-
-    //remove and save the dragged item content
-    const draggedItemContent = _fruitItems.splice(dragItem.current, 1)[0];
-
-    //switch the position
-    _fruitItems.splice(dragOverItem.current, 0, draggedItemContent);
-
-    //reset the position ref
-    dragItem.current = null;
-    dragOverItem.current = null;
-
-    //update the actual array
-    setZones(_fruitItems);
-  };
-
   return (
     <Section title={"Timezones"} onToggle={onToggle} isActive={isActive}>
       <DragDropContext
@@ -173,15 +150,7 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
                               onDelete={() => {
                                 arrayHelpers.remove(index);
                                 handleSubmit();
-                              }}
-                              onDragStart={(e) => {
-                                dragItem.current = index;
-                                console.log("dragged");
-                              }}
-                              onDragEnter={(e) =>
-                                (dragOverItem.current = index)
-                              }
-                              onDragEnd={handleSort}
+                              }}                              
                               isOnDrag={snapshot.isDragging}
                             />
                                     </div>

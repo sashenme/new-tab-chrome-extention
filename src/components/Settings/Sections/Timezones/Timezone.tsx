@@ -3,7 +3,24 @@ import DeleteIcon from "../../../../assets/icons/DeleteIcon";
 import GrabIcon from "../../../../assets/icons/GrabIcon";
 import SelectDropdown from "../../Elements/SelectDropdown";
 
-const Timezone = ({
+type TSelectOption = {
+  value: string;
+  label: string;
+};
+
+interface timezoneProps {
+  name: string;
+  value: TSelectOption[];
+  onChange: (e: any) => void;
+  defaultValue: TSelectOption[];
+  onBlur: (e: any) => void;
+  options: TSelectOption[];
+  onDelete: () => void;
+  isOnDrag: boolean;
+  dragHandle: any;
+}
+
+const Timezone: React.FC<timezoneProps> = ({
   name,
   value,
   onChange,
@@ -11,20 +28,14 @@ const Timezone = ({
   onBlur,
   options,
   onDelete,
-  onDragStart,
-  onDragEnter,
-  onDragEnd,
   isOnDrag,
-  dragHandle
+  dragHandle,
 }) => {
   return (
     <div
-      draggable
-      onDragStart={onDragStart}
-      onDragEnter={onDragEnter}
-      onDragEnd={onDragEnd}
-      onDragOver={(e) => e.preventDefault}
-      className={`${isOnDrag ? 'bg-gray-800 border border-white/10' : 'bg-gray-800/80'} grid grid-cols-12 gap-4 items-center justify-between rounded-lg py-2 pl-2 pr-4`}
+      className={`${
+        isOnDrag ? "bg-gray-800 border border-white/10" : "bg-gray-800/80"
+      } grid grid-cols-12 gap-4 items-center justify-between rounded-lg py-2 pl-2 pr-4`}
     >
       <button className="w-6" type="button" {...dragHandle}>
         <GrabIcon />
