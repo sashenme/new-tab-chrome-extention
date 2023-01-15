@@ -1,25 +1,21 @@
 import React, { useState, useEffect } from "react";
-import PlusIcon from "../../../assets/icons/PlusIcon";
 import Section from "../Section";
 import Timezone from "./Timezones/Timezone";
 import { Formik, Form, FieldArray } from "formik";
 import cityTimezones from "city-timezones";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Button from "./Timezones/Button";
 
-const Button: React.FC<{ onClick: () => void }> = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    type="button"
-    className="bg-black hover:bg-gray-900 rounded-full px-4 py-2 flex items-center gap-1 w-full max-w-[8rem] mx-auto mt-4"
-  >
-    <PlusIcon />
-    <span>Add timezone</span>
-  </button>
-);
+type TCity ={
+  label: string;
+  value: string;
+  city: string;
+  country: string
+}
 
 const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
-  const [cities, setCities] = useState([]);
-  const [zones, setZones] = useState(favoriteZones);
+  const [cities, setCities] = useState<TCity[]>([]);
+  const [zones, setZones] = useState<TCity[]>(favoriteZones);
 
   useEffect(() => {
     const cityMapping = cityTimezones.cityMapping;
@@ -51,7 +47,6 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
           const desI = param.destination?.index;
           if (desI) {
             zones.splice(desI, 0, zones.splice(srcI, 1)[0]);
-            //  setZones(sorted)
             setZones(zones);
           }
         }}
