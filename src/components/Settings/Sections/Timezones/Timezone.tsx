@@ -52,7 +52,7 @@ const Timezone: React.FC<TimezoneProps> = ({
         {value && value[0]?.value}
       </span>
       <button
-        className="justify-self-end col-2"
+        className="justify-self-end col-2 text-red-600"
         onClick={onDelete}
         type="button"
       >
