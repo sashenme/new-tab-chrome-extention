@@ -47,11 +47,6 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
     });
   }, []);
 
-
-  // useEffect(()=>{
-  //   console.log(weather)
-  // },[weather])
-
   return (
     <div
       className={`fixed grid bg-slate-900/60 backdrop-blur-lg max-w-lg w-full h-[100vh] top-0 left-0 pl-8 pr-0.5 py-10 text-white transition-all ease-in ${

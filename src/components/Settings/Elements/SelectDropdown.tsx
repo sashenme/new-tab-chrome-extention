@@ -1,7 +1,5 @@
 import React from "react";
 import Select from "react-select";
-import { indicatorSeparatorCSS } from "react-select/dist/declarations/src/components/indicators";
-import Background from "../../Background";
 
 interface SelectDropdownProps {
   name?: string;

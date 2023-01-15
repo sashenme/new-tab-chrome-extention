@@ -8,7 +8,7 @@ type TSelectOption = {
   label: string;
 };
 
-interface timezoneProps {
+interface TimezoneProps {
   name: string;
   value: TSelectOption[];
   onChange: (e: any) => void;
@@ -20,7 +20,7 @@ interface timezoneProps {
   dragHandle: any;
 }
 
-const Timezone: React.FC<timezoneProps> = ({
+const Timezone: React.FC<TimezoneProps> = ({
   name,
   value,
   onChange,
