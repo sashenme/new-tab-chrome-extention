@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import GoogleIcon from "../../assets/icons/GoogleIcon";
+import CompletedTasks from "./CompletedTasks";
 import NewTask from "./NewTask";
 import NoAuth from "./NoAuth";
 import NoTasks from "./NoTasks";
+import PendingTasks from "./PendingTasks";
 import TaskItem from "./TaskItem";
 
 const Tasks = () => {
@@ -12,6 +14,7 @@ const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [selectedTaskList, setSelectedTaskList] = useState("");
   const [text, setText] = useState("");
+  const [showCompleted, setShowCompleted] = useState(false);
 
   const getAuth = async () => {
     chrome.identity.getAuthToken(
@@ -169,56 +172,22 @@ const Tasks = () => {
                 </select>
               </div>
             )}
-            <div className="grid px-6 overflow-y-auto max-h-[280px]">
-              {tasks && tasks.length > 0 ? (
-                tasks.filter((task) => task.status !== "completed").length >
-                0 ? (
-                  tasks
-                    .filter((task) => task.status !== "completed")
-                    .map((task) => (
-                      <TaskItem
-                        id={`task-${task.id}`}
-                        title={task.title}
-                        checked={task.status === "completed"}
-                        onComplete={() => completeTask(task)}
-                        onDelete={() => deleteTask(task.id)}
-                      />
-                    ))
-                ) : (
-                  <NoTasks
-                    title="All tasks complete"
-                    description="Nice work!"
-                  />
-                )
-              ) : (
-                <NoTasks title="No tasks for this list" />
-              )}
-            </div>
+             {!showCompleted && <PendingTasks
+              tasks={tasks}
+              completeTask={completeTask}
+              deleteTask={deleteTask}
+              
+            />}
           </div>
           <div className="row-auto self-end">
-            <div className="px-6 pt-4">
-              <h2>
-                Completed Tasks (
-                {tasks &&
-                  tasks.filter((task) => task.status === "completed").length}
-                )
-              </h2>
-              <div className="grid">
-                {tasks &&
-                  tasks.length > 0 &&
-                  tasks
-                    .filter((task) => task.status === "completed")
-                    .map((task) => (
-                      <TaskItem
-                        id={`task-${task.id}`}
-                        title={task.title}
-                        checked={task.status === "completed"}
-                        onComplete={() => completeTask(task)}
-                        onDelete={() => deleteTask(task.id)}
-                      />
-                    ))}
-              </div>
-            </div>
+            <CompletedTasks
+              tasks={tasks}
+              completeTask={completeTask}
+              deleteTask={deleteTask}
+              showCompleted={showCompleted}
+              onClick={()=>setShowCompleted(!showCompleted)}
+              
+            />
             <NewTask
               onSubmit={(e) => newTask(e)}
               onChange={(e) => setText(e.target.value)}
