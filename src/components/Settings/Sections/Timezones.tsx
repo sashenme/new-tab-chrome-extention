@@ -129,7 +129,7 @@ const Timezones = ({ onToggle, isActive, getFavorite, favoriteZones }) => {
                                       style={{
                                         ...provided.draggableProps.style,
                                         boxShadow: snapshot.isDragging
-                                          ? "0 4px 16px rgba(0,0,0,.2)"
+                                          ? "0 4px 16px rgba(0,0,0,.2), 0 8px 16px rgba(0,0,0,.5)"
                                           : "none",
                                       }} 
                                       className="rounded-lg"
