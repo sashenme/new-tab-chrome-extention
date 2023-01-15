@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import NewTask from "./NewTask";
 import TaskItem from "./TaskItem";
 
 const Tasks = () => {
@@ -215,18 +216,13 @@ const Tasks = () => {
                     />
                   ))}
             </div>
+            <NewTask
+            onSubmit={(e) => newTask(e)}
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+          />
           </div>
-          <form onSubmit={(e) => newTask(e)}>
-            <input
-              type="text"
-              className="text-slate-800"
-              onChange={(e) => setText(e.target.value)}
-              value={text}
-            />
-            <button type="submit" className="bg-blue-500 px-2 py-1">
-              Submit
-            </button>
-          </form>
+         
         </div>
       ) : (
         <button
