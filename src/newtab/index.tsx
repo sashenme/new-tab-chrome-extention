@@ -40,12 +40,13 @@ const NewTab = () => {
           {widgets.weather && <Weather /> }
           {widgets.search && <Search /> } 
           {widgets.quickLinks && <QuickLinks />}
+          
+      <Settings />
         </div>
         <div>
           <Tasks />
         </div>
       </div>
-      <Settings />
       <Background />
     </div>
   );

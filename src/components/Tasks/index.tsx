@@ -153,12 +153,12 @@ const Tasks = () => {
   }, [accessToken]);
 
   return (
-    <div className="text-white text-lg grid grid-rows-2 bg-gradient-to-bl from-slate-300/30 to-slate-100/10 py-8 rounded-md backdrop-blur-sm max-w-[768px] border-solid border border-white/20 ml-auto min-h-[70vh] max-h-[70vh]">
+    <div className="text-white text-lg grid bg-gradient-to-bl from-slate-400/40 to-slate-100/20 py-8 rounded-md backdrop-blur-sm max-w-[768px] border-solid border border-white/20 ml-auto min-h-[70vh] max-h-[70vh]">
       {accessToken ? (
         <>
-          <div>
+          <div className="min-h-[55vh]">
             {taskList && (
-              <div className="px-6 pb-8">
+              <div className="px-6 pb-4">
                 <h1 className="text-3xl font-semibold">Google Tasks</h1>
                 <select
                   onChange={(e) => setSelectedTaskList(e.target.value)}
@@ -172,22 +172,25 @@ const Tasks = () => {
                 </select>
               </div>
             )}
-             {!showCompleted && <PendingTasks
-              tasks={tasks}
-              completeTask={completeTask}
-              deleteTask={deleteTask}
-              
-            />}
-          </div>
-          <div className="row-auto self-end">
+            <div className="flex flex-col items-between h-full">
+              {!showCompleted && (
+                <PendingTasks
+                  tasks={tasks}
+                  completeTask={completeTask}
+                  deleteTask={deleteTask}
+                />
+              )}
             <CompletedTasks
               tasks={tasks}
               completeTask={completeTask}
               deleteTask={deleteTask}
               showCompleted={showCompleted}
-              onClick={()=>setShowCompleted(!showCompleted)}
-              
+              onClick={() => setShowCompleted(!showCompleted)}
+              className={`row-auto border-y border-white/20  ${showCompleted ? 'h-[46vh]' : ''}`}
             />
+            </div>
+          </div>
+          <div className="row-auto self-end mt-3">
             <NewTask
               onSubmit={(e) => newTask(e)}
               onChange={(e) => setText(e.target.value)}

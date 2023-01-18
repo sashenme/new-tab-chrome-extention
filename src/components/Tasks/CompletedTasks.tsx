@@ -8,17 +8,19 @@ interface CompletedTasksProps {
   deleteTask: any;
   showCompleted: boolean,
   onClick:()=>void;
+  className?: string
 }
 const CompletedTasks: React.FC<CompletedTasksProps> = ({
   tasks,
   completeTask,
   deleteTask,
   showCompleted,
-  onClick
+  onClick,
+  className
 }) => {
   return (
-    <div className="px-6 pt-4 bg-slate-600/20">
-      <button className=" px-4 py-3 rounded-sm w-full flex gap-2" onClick={onClick}>
+    <div className={className}>
+      <button className="px-4 rounded-sm w-full flex gap-1 py-2" onClick={onClick}>
         <CaretIcon className={showCompleted ? 'rotate-90' : ''}/>
         <span>
           Completed Tasks (
@@ -26,7 +28,7 @@ const CompletedTasks: React.FC<CompletedTasksProps> = ({
         </span>
       </button>
       {showCompleted && (
-        <div className="grid">
+        <div className="grid max-h-[90%] px-6 overflow-y-auto">
           {tasks &&
             tasks.length > 0 &&
             tasks
