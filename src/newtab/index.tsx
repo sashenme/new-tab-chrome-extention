@@ -44,7 +44,7 @@ const NewTab = () => {
       <Settings />
         </div>
         <div>
-          <Tasks />
+         {widgets.tasks && <Tasks /> } 
         </div>
       </div>
       <Background />

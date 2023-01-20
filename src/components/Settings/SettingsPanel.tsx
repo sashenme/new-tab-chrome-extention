@@ -5,6 +5,7 @@ import Search from "./Sections/Search";
 import TodaysDate from "./Sections/TodaysDate";
 import Weather from "./Sections/Weather";
 import Timezones from "./Sections/Timezones";
+import Tasks from "./Sections/Tasks";
 import Header from "./Sections/Header";
 import Footer from "./Sections/Footer";
 
@@ -79,6 +80,10 @@ const SettingsPanel: React.FC<SettingsPanelProps> = ({
         <QuickLinks
           onToggle={() => toggleSection("quickLinks")}
           isActive={widgets.quickLinks}
+        />
+        <Tasks
+          onToggle={() => toggleSection("tasks")}
+          isActive={widgets.tasks}
         />
         </div>
       </div>
