@@ -35,6 +35,7 @@ const CompletedTasks: React.FC<CompletedTasksProps> = ({
               .filter((task) => task.status === "completed")
               .map((task) => (
                 <TaskItem
+                  key={task.id}
                   id={`task-${task.id}`}
                   title={task.title}
                   checked={task.status === "completed"}

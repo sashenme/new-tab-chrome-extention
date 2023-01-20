@@ -21,3 +21,32 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #647994; 
 }
+
+
+.task-animation{
+  width: 60px;
+  height: 60px;
+  position: absolute;
+  z-index: 1;
+  left: -24px;
+  background-image: url(https://res.cloudinary.com/sashenme/image/upload/v1674174129/main_nn3qjz.png);
+  background-position: left;
+  background-size: cover;
+  top: -16px;
+  pointer-events: none;
+}
+.checkbox{
+  opacity: 0;
+}
+.checkbox.already:checked ~ .task-animation {
+  background-position: right;
+}
+.checkbox.fresh:checked ~ .task-animation {
+  animation: taskAnimation 0.4s steps(17) forwards;
+  }
+
+@keyframes taskAnimation {
+  to {
+    background-position: right;
+  }
+}

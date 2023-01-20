@@ -96,7 +96,7 @@ const Tasks = () => {
   };
 
   const completeTask = async (task) => {
-    console.log(task.selfLink);
+   
     await fetch(`${task.selfLink}?access_token=${accessToken}`, {
       method: "PUT",
       body: JSON.stringify({
@@ -104,8 +104,9 @@ const Tasks = () => {
         status: task.status === "completed" ? "needsAction" : "completed",
         title: task.title,
       }),
-    }).then(() => {
-      listTasks(selectedTaskList);
+    }).then(() => { 
+      setTimeout(()=>{listTasks(selectedTaskList);},
+      task.status === "completed" ? 0: 500)
     });
   };
 
