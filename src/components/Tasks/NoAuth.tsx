@@ -3,7 +3,7 @@ import GoogleIcon from "../../assets/icons/GoogleIcon";
 
 const NoAuth: React.FC<{getAuth: ()=>void}> = ({getAuth}) => {
   return (
-    <div className="px-4">
+    <div className="px-6">
       <h1 className="text-3xl font-semibold">Google Tasks</h1>
       <p className="text-sm text-gray-300 mb-8">
         Please authenticate with your Google account to list your Google Tasks

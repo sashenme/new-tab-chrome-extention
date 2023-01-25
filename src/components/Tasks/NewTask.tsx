@@ -19,7 +19,7 @@ const NewTask: React.FC<NewTaskProps> = ({ onSubmit, onChange, value }) => {
         </div>
         <input
           type="text"
-          className="bg-transparent px-14 py-3 w-full placeholder:text-gray-300 font-300 outline-none focus:bg-gray-700"
+          className="bg-transparent px-14 py-3 w-full placeholder:text-gray-300 font-300 border border-transparent rounded-md outline-none focus:bg-gray-700 focus:border-white/40"
           placeholder="New task"
           onChange={onChange}
           value={value}
