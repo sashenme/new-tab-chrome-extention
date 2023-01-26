@@ -34,7 +34,7 @@ const NewTab = () => {
   return (
     <div className="max-w-[1620px] mx-auto p-4  font-sans">
     {widgets.timezones && <TimeZones />} 
-      <div className="grid md:grid-cols-2 mt-20 gap-40">
+      <div className="grid md:grid-cols-2 mt-10 gap-40 2xl:mt-20">
         <div>
           {widgets.todaysDate &&  <TodaysDate />}
           {widgets.weather && <Weather /> }

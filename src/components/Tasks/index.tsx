@@ -96,7 +96,6 @@ const Tasks = () => {
   };
 
   const completeTask = async (task) => {
-   
     await fetch(`${task.selfLink}?access_token=${accessToken}`, {
       method: "PUT",
       body: JSON.stringify({
@@ -104,9 +103,13 @@ const Tasks = () => {
         status: task.status === "completed" ? "needsAction" : "completed",
         title: task.title,
       }),
-    }).then(() => { 
-      setTimeout(()=>{listTasks(selectedTaskList);},
-      task.status === "completed" ? 0: 500)
+    }).then(() => {
+      setTimeout(
+        () => {
+          listTasks(selectedTaskList);
+        },
+        task.status === "completed" ? 0 : 500
+      );
     });
   };
 
@@ -154,10 +157,10 @@ const Tasks = () => {
   }, [accessToken]);
 
   return (
-    <div className="text-white text-lg grid bg-gradient-to-bl from-slate-400/40 to-slate-100/20 py-8 rounded-md backdrop-blur-sm max-w-[768px] border-solid border border-white/20 ml-auto min-h-[70vh] max-h-[70vh]">
+    <div className="text-white text-lg grid bg-gradient-to-bl from-slate-400/40 to-slate-100/20 pt-8 pb-4 rounded-md backdrop-blur-sm max-w-[768px] border-solid border border-white/20 ml-auto ">
       {accessToken ? (
         <>
-          <div className="min-h-[55vh]">
+          <div className="">
             {taskList && (
               <div className="px-6 pb-4">
                 <h1 className="text-3xl font-semibold">Google Tasks</h1>
@@ -173,25 +176,27 @@ const Tasks = () => {
                 </select>
               </div>
             )}
-            <div className="flex flex-col items-between h-full">
-              {!showCompleted && (
+            {!showCompleted && (
+              <div className="flex flex-col items-between h-[34vh]">
                 <PendingTasks
                   tasks={tasks}
                   completeTask={completeTask}
                   deleteTask={deleteTask}
                 />
-              )}
+              </div>
+            )}
+          </div>
+          <div className="row-auto self-end mt-3">
             <CompletedTasks
               tasks={tasks}
               completeTask={completeTask}
               deleteTask={deleteTask}
               showCompleted={showCompleted}
               onClick={() => setShowCompleted(!showCompleted)}
-              className={`row-auto border-y border-white/20  ${showCompleted ? 'h-[46vh]' : ''}`}
+              className={`row-auto border-y border-white/20  ${
+                showCompleted ? "h-[40vh] 2xl:h-[45vh]" : ""
+              }`}
             />
-            </div>
-          </div>
-          <div className="row-auto self-end mt-3">
             <NewTask
               onSubmit={(e) => newTask(e)}
               onChange={(e) => setText(e.target.value)}

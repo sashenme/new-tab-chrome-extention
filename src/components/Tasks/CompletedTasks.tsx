@@ -28,7 +28,7 @@ const CompletedTasks: React.FC<CompletedTasksProps> = ({
         </span>
       </button>
       {showCompleted && (
-        <div className="grid max-h-[90%] px-6 overflow-y-auto">
+        <div className="grid max-h-[85%] px-6 overflow-y-auto">
           {tasks &&
             tasks.length > 0 &&
             tasks

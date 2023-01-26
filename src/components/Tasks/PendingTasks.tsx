@@ -4,7 +4,7 @@ import TaskItem from './TaskItem'
 
 const PendingTasks = ({tasks, completeTask, deleteTask}) => {
   return (
-    <div className="flex flex-col px-6 overflow-y-auto min-h-[80%] max-h-[42vh] pb-4">
+    <div className="flex flex-col px-6 overflow-y-auto pb-4 h-full">
               {tasks && tasks.length > 0 ? (
                 tasks.filter((task) => task.status !== "completed").length >
                 0 ? (
