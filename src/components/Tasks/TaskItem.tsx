@@ -30,7 +30,7 @@ const TaskItem: React.FC<TaskItemProps> = ({
   };
 
   return (
-    <div className="bg-gray-500/10 hover:bg-gray-500/60 border-b border-white/20 flex justify-between items-center min-h-[4rem] px-4 last-of-type:border-b-0">
+    <div className="bg-gray-500/10 backdrop-blur-sm hover:bg-gray-500/60 border-b border-white/20 flex justify-between items-center min-h-[4rem] px-4 last-of-type:border-b-0">
       <div className="flex gap-3 relative">
         <input
           type="checkbox"

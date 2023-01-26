@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
-import GoogleIcon from "../../assets/icons/GoogleIcon";
 import CompletedTasks from "./CompletedTasks";
 import NewTask from "./NewTask";
 import NoAuth from "./NoAuth";
-import NoTasks from "./NoTasks";
 import PendingTasks from "./PendingTasks";
-import TaskItem from "./TaskItem";
 
 const Tasks = () => {
   const [taskList, setTaskList] = useState([]);
@@ -23,7 +20,6 @@ const Tasks = () => {
       },
       function (token) {
         setAccessToken(token);
-        console.log("hehe", token);
       }
     );
   };
@@ -45,15 +41,10 @@ const Tasks = () => {
     setSelectedTaskList(taskListId);
     if (accessToken) {
       fetch(
-        `https://tasks.googleapis.com/tasks/v1/lists/${taskListId}/tasks?access_token=${accessToken}`,
-        {
-          //  fetch(`https://tasks.googleapis.com/tasks/v1/users/@me/lists/${taskListId}/task?access_token=${accessToken}`,{
-          //mode: "cors", // no-cors
-        }
+        `https://tasks.googleapis.com/tasks/v1/lists/${taskListId}/tasks?access_token=${accessToken}`
       )
         .then((res) => res.json())
-        .then((res) => {
-          console.log(res);
+        .then((res) => { 
           setTasks(res.items);
         });
     }
@@ -151,8 +142,7 @@ const Tasks = () => {
 
   useEffect(() => {
     if (accessToken !== null) {
-      getTaskList();
-      console.log(accessToken);
+      getTaskList(); 
     }
   }, [accessToken]);
 
