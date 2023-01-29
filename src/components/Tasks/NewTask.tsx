@@ -14,7 +14,7 @@ const NewTask: React.FC<NewTaskProps> = ({ onSubmit, onChange, value }) => {
         onSubmit={onSubmit}
         className="bg-gray-800/90 hover:bg-gray-700 text-white rounded-md mt-6 relative"
       >
-        <div className="absolute top-3 left-4 m-auto">
+        <div className="absolute top-3.5 left-4 m-auto">
           <TaskIcon />
         </div>
         <input
