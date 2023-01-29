@@ -56,7 +56,7 @@ export const createNewTask = async (accessToken: string, listId: string, text: s
   ).then((res) => res.json());
 };
 
-export const completeTask = async (accessToken: string, task: any) => {
+export const completeTask = async (accessToken: string, task: {id: string, title: string,  status: string,selfLink: string, }) => {
   return await fetch(`${task.selfLink}?access_token=${accessToken}`, {
     method: "PUT",
     body: JSON.stringify({

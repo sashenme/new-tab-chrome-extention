@@ -46,7 +46,7 @@ const Tasks = () => {
     }
   };
 
-  const handleComplete = (task: any) => {
+  const handleComplete = (task: {id: string, title: string,  status: string,selfLink: string, }) => {
     completeTask(accessToken, task).then(() => {
       setTimeout(
         () => {
