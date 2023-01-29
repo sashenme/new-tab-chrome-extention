@@ -26,6 +26,9 @@ const Tasks = () => {
       },
       function (token) {
         setAccessToken(token);
+        chrome.storage.sync.set({ tasks: {accessToken: token} }, () => {
+          console.log('token saved')
+        });
       }
     );
   };
@@ -34,7 +37,7 @@ const Tasks = () => {
     getTaskList(accessToken).then((res) => {
       setTaskList(res.items);
       listTasks(res.items[0].id);
-    });
+    }).catch(() => setAccessToken(null));
   };
 
   const listTasks = (taskListId: string) => {
@@ -67,13 +70,14 @@ const Tasks = () => {
     e.preventDefault();
     setText("");
     createNewTask(accessToken, selectedTaskList, text).then((res) => {
-      console.log(res);
       listTasks(selectedTaskList);
     });
   };
 
   useEffect(() => {
-    getAuth();
+    chrome.storage.sync.get(["tasks"]).then((result) => {
+      result.tasks && setAccessToken(result.tasks.accessToken)
+    });
   }, []);
 
   useEffect(() => {
