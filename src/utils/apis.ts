@@ -4,3 +4,4 @@ export const openWeatherApi = `https://api.openweathermap.org/data/2.5/weather?&
 export const openWeatherImg = `http://openweathermap.org/img/wn`;
 export const countryImgApi = `https://countryflagsapi.com/svg`;
 export const faviconImg = `https://icon.horse/icon/`;
+export const googleTaskApi = `https://tasks.googleapis.com/tasks/v1`;

@@ -1,4 +1,11 @@
 import React, { useEffect, useState } from "react";
+import {
+  completeTask,
+  createNewTask,
+  deleteTask,
+  getTaskList,
+  getTasksByList,
+} from "../../actions/tasksAction";
 import CompletedTasks from "./CompletedTasks";
 import NewTask from "./NewTask";
 import NoAuth from "./NoAuth";
@@ -7,7 +14,6 @@ import PendingTasks from "./PendingTasks";
 const Tasks = () => {
   const [taskList, setTaskList] = useState([]);
   const [accessToken, setAccessToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [selectedTaskList, setSelectedTaskList] = useState("");
   const [text, setText] = useState("");
@@ -24,77 +30,24 @@ const Tasks = () => {
     );
   };
 
-  const getTaskList = () => {
-    fetch(
-      `https://tasks.googleapis.com/tasks/v1/users/@me/lists?access_token=${accessToken}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setTaskList(res.items);
-        console.log(res.items);
-        listTasks(res.items[0].id);
-        setIsLoading(false);
-      });
+  const loadTaskList = () => {
+    getTaskList(accessToken).then((res) => {
+      setTaskList(res.items);
+      listTasks(res.items[0].id);
+    });
   };
 
-  const listTasks = (taskListId) => {
+  const listTasks = (taskListId: string) => {
     setSelectedTaskList(taskListId);
     if (accessToken) {
-      fetch(
-        `https://tasks.googleapis.com/tasks/v1/lists/${taskListId}/tasks?access_token=${accessToken}`
-      )
-        .then((res) => res.json())
-        .then((res) => { 
-          setTasks(res.items);
-        });
+      getTasksByList(accessToken, taskListId).then((res) => {
+        setTasks(res.items);
+      });
     }
   };
 
-  const makeNewTaskList = (title) => {
-    fetch(
-      `https://tasks.googleapis.com/tasks/v1/users/@me/lists?access_token=${accessToken}`,
-      {
-        method: "POST",
-        body: JSON.stringify({ title }),
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        getTaskList();
-      });
-  };
-
-  const deleteTaskList = async (listId) => {
-    await fetch(
-      `https://tasks.googleapis.com/tasks/v1/users/@me/lists/${listId}?access_token=${accessToken}`,
-      {
-        method: "DELETE",
-      }
-    ).then(() => {
-      getTaskList();
-    });
-  };
-
-  const clearTaskList = async (listId) => {
-    await fetch(
-      `https://tasks.googleapis.com/tasks/v1/lists/${listId}/clear?access_token=${accessToken}`,
-      {
-        method: "POST",
-      }
-    ).then(() => {
-      getTaskList();
-    });
-  };
-
-  const completeTask = async (task) => {
-    await fetch(`${task.selfLink}?access_token=${accessToken}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        id: task.id,
-        status: task.status === "completed" ? "needsAction" : "completed",
-        title: task.title,
-      }),
-    }).then(() => {
+  const handleComplete = (task: any) => {
+    completeTask(accessToken, task).then(() => {
       setTimeout(
         () => {
           listTasks(selectedTaskList);
@@ -104,11 +57,8 @@ const Tasks = () => {
     });
   };
 
-  const deleteTask = async (taskId) => {
-    fetch(
-      `https://tasks.googleapis.com/tasks/v1/lists/${selectedTaskList}/tasks/${taskId}?access_token=${accessToken}`,
-      { method: "DELETE" }
-    ).then(() => {
+  const handleDeleteTask = async (taskId: string) => {
+    deleteTask(accessToken, selectedTaskList, taskId).then(() => {
       listTasks(selectedTaskList);
     });
   };
@@ -116,20 +66,10 @@ const Tasks = () => {
   const newTask = async (e) => {
     e.preventDefault();
     setText("");
-    fetch(
-      `https://tasks.googleapis.com/tasks/v1/lists/${selectedTaskList}/tasks?access_token=${accessToken}`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          title: text,
-        }),
-      }
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        listTasks(selectedTaskList);
-      });
+    createNewTask(accessToken, selectedTaskList, text).then((res) => {
+      console.log(res);
+      listTasks(selectedTaskList);
+    });
   };
 
   useEffect(() => {
@@ -142,7 +82,7 @@ const Tasks = () => {
 
   useEffect(() => {
     if (accessToken !== null) {
-      getTaskList(); 
+      loadTaskList();
     }
   }, [accessToken]);
 
@@ -170,8 +110,8 @@ const Tasks = () => {
               <div className="flex flex-col items-between h-[34vh]">
                 <PendingTasks
                   tasks={tasks}
-                  completeTask={completeTask}
-                  deleteTask={deleteTask}
+                  completeTask={handleComplete}
+                  deleteTask={handleDeleteTask}
                 />
               </div>
             )}
@@ -179,8 +119,8 @@ const Tasks = () => {
           <div className="row-auto self-end mt-3">
             <CompletedTasks
               tasks={tasks}
-              completeTask={completeTask}
-              deleteTask={deleteTask}
+              completeTask={handleComplete}
+              deleteTask={handleDeleteTask}
               showCompleted={showCompleted}
               onClick={() => setShowCompleted(!showCompleted)}
               className={`row-auto border-y border-white/20  ${
